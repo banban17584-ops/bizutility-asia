@@ -1,314 +1,717 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SEA Professional Utility Hub</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-        }
-    </script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEA Remote Worker & Freelancer Income Optimizer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --bg:#060d1f;
+  --bg2:#0e1a2e;
+  --bg3:#0a1225;
+  --card:#111d33;
+  --border:rgba(99,130,180,.18);
+  --border-bright:rgba(99,130,180,.32);
+  --text:#e8f0fe;--text2:#8fa8cc;--text3:#4d6a8a;
+  --green:#34d399;--green2:#10b981;--green-bg:rgba(52,211,153,.08);--green-border:rgba(52,211,153,.22);
+  --red:#f87171;--blue:#60a5fa;--amber:#fbbf24;--purple:#a78bfa;
+  --radius:10px;--radius-lg:14px;--radius-xl:18px
+}
+
+body{font-family:'Inter',ui-sans-serif,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.6;min-height:100vh;overflow-x:hidden}
+
+/* animated starfield background */
+body::before{
+  content:'';position:fixed;inset:0;
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 10%, rgba(52,211,153,.06) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(96,165,250,.05) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 60% at 50% 50%, rgba(167,139,250,.04) 0%, transparent 70%);
+  pointer-events:none;z-index:0;animation:bgPulse 8s ease-in-out infinite alternate
+}
+@keyframes bgPulse{from{opacity:.6}to{opacity:1}}
+
+/* grid overlay */
+body::after{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:linear-gradient(rgba(99,130,180,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(99,130,180,.04) 1px,transparent 1px);
+  background-size:48px 48px
+}
+
+.root{position:relative;z-index:1;max-width:1240px;margin:0 auto;padding:2rem 1.5rem}
+
+/* --- PAGE ENTER ANIMATION --- */
+.fade-up{opacity:0;transform:translateY(20px);animation:fadeUp .6s cubic-bezier(.22,.68,0,1.2) forwards}
+.fade-up.d1{animation-delay:.05s}.fade-up.d2{animation-delay:.12s}.fade-up.d3{animation-delay:.19s}
+.fade-up.d4{animation-delay:.26s}.fade-up.d5{animation-delay:.33s}.fade-up.d6{animation-delay:.4s}
+@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+
+/* --- HEADER --- */
+.header-row{margin-bottom:2rem;padding-bottom:1.75rem;border-bottom:1px solid var(--border)}
+.header-top{display:flex;align-items:center;justify-content:space-between;gap:1.5rem;margin-bottom:1.25rem;flex-wrap:wrap}
+.badge{display:inline-flex;align-items:center;gap:7px;background:var(--green-bg);color:var(--green);font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:4px 13px;border-radius:20px;border:1px solid var(--green-border)}
+.pulse-dot{width:6px;height:6px;border-radius:50%;background:var(--green);position:relative}
+.pulse-dot::after{content:'';position:absolute;inset:-3px;border-radius:50%;background:var(--green);opacity:.4;animation:pulseRing 1.8s ease-out infinite}
+@keyframes pulseRing{0%{transform:scale(1);opacity:.4}100%{transform:scale(2.4);opacity:0}}
+.header-title-block{display:flex;align-items:baseline;gap:1rem;flex-wrap:wrap}
+h1{font-size:26px;font-weight:700;color:#fff;letter-spacing:-.025em;line-height:1.2;white-space:nowrap}
+.h1-accent{background:linear-gradient(135deg,var(--green),var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent}
+.subtitle{font-size:13px;color:var(--text2);line-height:1.5}
+
+/* header stat bar */
+.header-stats{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}
+.hstat{background:var(--card);padding:.85rem 1.1rem;position:relative;transition:background .3s}
+.hstat::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:transparent;transition:background .3s}
+.hstat.lit::before{background:linear-gradient(90deg,var(--green),var(--blue))}
+.hstat.lit{background:rgba(52,211,153,.06)}
+.hstat-label{font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--text3);margin-bottom:5px}
+.hstat-val{font-size:18px;font-weight:700;color:#fff;transition:color .3s}
+.hstat-val.green{color:var(--green)}
+.hstat-val.red{color:var(--red)}
+.hstat-val.blue{color:var(--blue)}
+.hstat-sub{font-size:11px;color:var(--text3);margin-top:3px}
+
+/* --- LAYOUT --- */
+.layout{display:grid;grid-template-columns:310px 1fr;gap:1.5rem;align-items:start}
+
+/* --- SIDEBAR --- */
+.sidebar{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-xl);padding:1.4rem;position:sticky;top:1.5rem}
+.sidebar-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem;padding-bottom:1rem;border-bottom:1px solid var(--border)}
+.sidebar-title{font-size:15px;font-weight:700;color:#fff}
+.live-indicator{display:flex;align-items:center;gap:6px;font-size:10px;color:var(--green);font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+.live-dot-sm{width:6px;height:6px;border-radius:50%;background:var(--green);animation:livePulse 2s ease-in-out infinite}
+@keyframes livePulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(52,211,153,.5)}50%{opacity:.7;box-shadow:0 0 0 4px rgba(52,211,153,0)}}
+
+.field-label{font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--text3);display:block;margin-bottom:5px}
+.form-group{margin-bottom:1.1rem}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:1.1rem}
+
+input[type=number],select{
+  width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);
+  color:var(--text);font-family:inherit;font-size:14px;font-weight:500;padding:9px 12px;
+  outline:none;transition:border-color .2s,box-shadow .2s,background .2s;-webkit-appearance:none
+}
+input[type=number]:hover,select:hover{border-color:var(--border-bright);background:var(--bg2)}
+input[type=number]:focus,select:focus{border-color:rgba(52,211,153,.5);box-shadow:0 0 0 3px rgba(52,211,153,.08);background:var(--bg2)}
+select option{background:var(--bg2)}
+
+/* range slider */
+.slider-wrap{margin-bottom:1.1rem}
+.slider-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.slider-val{font-size:13px;font-weight:700;color:var(--green)}
+input[type=range]{width:100%;-webkit-appearance:none;height:4px;border-radius:20px;background:var(--bg3);outline:none;cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--green);border:2px solid var(--bg);box-shadow:0 0 8px rgba(52,211,153,.5);cursor:pointer;transition:transform .15s,box-shadow .15s}
+input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.2);box-shadow:0 0 16px rgba(52,211,153,.7)}
+input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--green);border:2px solid var(--bg);cursor:pointer}
+
+.toggle-box{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:.9rem 1rem;margin-bottom:.8rem;transition:border-color .25s,background .25s}
+.toggle-box.on{border-color:var(--green-border);background:var(--green-bg)}
+.toggle-row{display:flex;align-items:flex-start;gap:10px;cursor:pointer;user-select:none}
+/* custom switch */
+.switch{position:relative;width:34px;height:20px;flex-shrink:0;margin-top:2px}
+.switch input{opacity:0;width:0;height:0;position:absolute}
+.switch-track{position:absolute;inset:0;background:#1e3a5f;border-radius:20px;transition:background .25s;border:1px solid var(--border)}
+.switch input:checked+.switch-track{background:var(--green2)}
+.switch-thumb{position:absolute;top:3px;left:3px;width:14px;height:14px;background:#fff;border-radius:50%;transition:transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .25s;box-shadow:0 1px 3px rgba(0,0,0,.3)}
+.switch input:checked~.switch-thumb{transform:translateX(14px);box-shadow:0 0 8px rgba(52,211,153,.5)}
+.toggle-name{font-size:13px;font-weight:600;color:var(--text)}
+.toggle-hint{font-size:11px;color:var(--text3);margin-top:2px;line-height:1.4}
+.epf-sub{margin-top:10px;display:grid;grid-template-columns:1fr 80px;gap:8px;overflow:hidden;transition:max-height .3s ease,opacity .3s ease;max-height:60px}
+.epf-sub.hidden{max-height:0;opacity:0;pointer-events:none}
+
+/* --- METRIC CARDS --- */
+.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:1.25rem}
+.m-card{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);
+  padding:1.1rem;position:relative;overflow:hidden;transition:border-color .3s,box-shadow .3s,transform .3s
+}
+.m-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.06),transparent)}
+.m-card:hover{transform:translateY(-2px);border-color:var(--border-bright);box-shadow:0 8px 32px rgba(0,0,0,.25)}
+.m-label{font-size:10px;font-weight:700;color:var(--text3);letter-spacing:.09em;text-transform:uppercase;margin-bottom:.5rem}
+.m-val{font-size:22px;font-weight:700;color:#fff;letter-spacing:-.02em;transition:color .3s}
+.m-sub{font-size:12px;color:var(--text3);margin-top:5px}
+
+/* animated counter glow on update */
+.m-val.flash{animation:valFlash .4s ease}
+@keyframes valFlash{0%{filter:brightness(1)}40%{filter:brightness(1.6) drop-shadow(0 0 6px currentColor)}100%{filter:brightness(1)}}
+
+.m-card.net{border-color:var(--green-border);background:linear-gradient(135deg,rgba(52,211,153,.1) 0%,var(--card) 60%)}
+.m-card.net .m-label{color:var(--green)}
+.m-card.net .m-val{color:var(--green)}
+.m-card.net .m-sub{color:rgba(52,211,153,.5)}
+.m-card.net:hover{box-shadow:0 8px 32px rgba(52,211,153,.15)}
+
+.deduct-rows{font-size:12px;margin-top:.4rem}
+.dr{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid var(--border)}
+.dr:last-child{border-bottom:none}
+.dr-lbl{color:var(--text2)}
+.dr-val{font-weight:700;color:var(--red)}
+
+/* --- FLOW BAR --- */
+.prog-section{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.4rem;margin-bottom:1.25rem;position:relative;overflow:hidden}
+.prog-section::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.06),transparent)}
+.prog-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:1rem}
+.prog-title{font-size:13px;font-weight:700;color:#fff}
+.prog-pct{font-size:13px;color:var(--green);font-weight:600}
+.track{height:14px;border-radius:20px;background:rgba(0,0,0,.4);border:1px solid var(--border);overflow:hidden;display:flex;position:relative}
+.seg{height:100%;transition:width .6s cubic-bezier(.34,1.2,.64,1);flex-shrink:0;position:relative}
+.seg.net{background:linear-gradient(90deg,#10b981,#34d399)}
+.seg.tax{background:linear-gradient(90deg,#ef4444,#f87171)}
+.seg.epf{background:linear-gradient(90deg,#3b82f6,#60a5fa)}
+.seg.ins{background:linear-gradient(90deg,#d97706,#fbbf24)}
+.legend{display:flex;gap:16px;margin-top:.75rem;flex-wrap:wrap}
+.leg-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text2);font-weight:500}
+.leg-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+
+/* --- BOTTOM TWO-COL --- */
+.two-col{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:1.25rem}
+.panel{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.4rem;position:relative;overflow:hidden}
+.panel::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.06),transparent)}
+.panel-title{font-size:14px;font-weight:700;color:#fff;margin-bottom:.2rem}
+.panel-sub{font-size:12px;color:var(--text3);margin-bottom:.9rem}
+
+/* --- TAX BANDS --- */
+.band-row{
+  display:grid;grid-template-columns:1fr 46px 100px;gap:8px;align-items:center;
+  padding:9px 11px;border-radius:var(--radius);font-size:12px;border:1px solid var(--border);
+  margin-bottom:6px;background:var(--bg3);transition:all .3s cubic-bezier(.22,.68,0,1.2)
+}
+.band-row.active{border-color:var(--green-border);background:var(--green-bg);transform:translateX(3px)}
+.band-name{font-weight:500;color:var(--text3)}
+.band-name.active{color:var(--green)}
+.band-taxable{font-size:10px;color:var(--text3);margin-top:2px}
+.band-rate{text-align:right;font-weight:700;color:var(--text3)}
+.band-rate.active{color:var(--green)}
+.band-tax{text-align:right;font-weight:700;color:var(--text2)}
+.band-tax.active{color:#fff}
+
+/* --- AFFILIATE PANEL --- */
+.aff-scan-line{position:absolute;top:0;left:-100%;width:40%;height:100%;background:linear-gradient(90deg,transparent,rgba(52,211,153,.04),transparent);animation:scanAff 4s ease-in-out infinite;pointer-events:none}
+@keyframes scanAff{0%{left:-40%}100%{left:140%}}
+.aff-header{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;margin-bottom:.75rem}
+.aff-badge{background:rgba(96,165,250,.1);color:var(--blue);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:20px;border:1px solid rgba(96,165,250,.22);white-space:nowrap}
+.aff-desc{font-size:12px;color:var(--text2);line-height:1.65;margin-bottom:1rem}
+.fx-table{width:100%;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;border-collapse:separate;border-spacing:0;font-size:12px}
+.fx-table th{background:rgba(0,0,0,.3);color:var(--text3);font-weight:700;font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:8px 11px;text-align:left;border-bottom:1px solid var(--border)}
+.fx-table th:not(:first-child){text-align:right}
+.fx-table td{padding:9px 11px;border-bottom:1px solid var(--border);color:var(--text);transition:color .3s}
+.fx-table tr:last-child td{border-bottom:none}
+.fx-table td:not(:first-child){text-align:right;font-weight:700}
+.fx-table .loss{color:var(--red)}
+.fx-table .savings-row td{background:var(--green-bg);color:var(--green)}
+.cta-btn{
+  display:block;width:100%;margin-top:1rem;padding:11px;border-radius:var(--radius);
+  background:linear-gradient(135deg,#10b981,#34d399);color:#0a1a0f;font-size:13px;font-weight:700;
+  text-align:center;text-decoration:none;border:none;transition:transform .2s,box-shadow .2s;
+  letter-spacing:.01em;position:relative;overflow:hidden
+}
+.cta-btn::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.25) 50%,transparent 100%);transform:translateX(-100%);transition:transform .5s}
+.cta-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(52,211,153,.35)}
+.cta-btn:hover::after{transform:translateX(100%)}
+.cta-btn:active{transform:translateY(0)}
+
+/* --- SCENARIO COMPARE --- */
+.scenario-section{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.4rem;margin-bottom:1.25rem}
+.scenario-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:1rem}
+.sc-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:.9rem;cursor:pointer;transition:all .25s;position:relative;overflow:hidden}
+.sc-card:hover,.sc-card.active{border-color:var(--green-border);background:var(--green-bg)}
+.sc-card::after{content:'';position:absolute;inset:0;border-radius:inherit;background:radial-gradient(circle at 50% 0%,rgba(52,211,153,.12),transparent 70%);opacity:0;transition:opacity .3s}
+.sc-card:hover::after,.sc-card.active::after{opacity:1}
+.sc-label{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:4px}
+.sc-val{font-size:16px;font-weight:700;color:#fff}
+.sc-curr{font-size:11px;color:var(--text3);margin-top:2px}
+.sc-badge{position:absolute;top:8px;right:8px;font-size:9px;font-weight:700;color:var(--green);background:var(--green-bg);border:1px solid var(--green-border);border-radius:20px;padding:1px 7px;opacity:0;transition:opacity .25s}
+.sc-card.active .sc-badge{opacity:1}
+
+/* --- TOOLTIP --- */
+.tip{position:relative;display:inline-block;cursor:help}
+.tip::after{
+  content:attr(data-tip);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%) scale(.9);
+  background:#1e3a5f;color:var(--text);font-size:11px;font-weight:500;padding:5px 10px;border-radius:6px;
+  border:1px solid var(--border-bright);white-space:nowrap;pointer-events:none;opacity:0;
+  transition:opacity .2s,transform .2s;z-index:100
+}
+.tip:hover::after{opacity:1;transform:translateX(-50%) scale(1)}
+
+/* --- MISC --- */
+@media(max-width:960px){
+  .layout{grid-template-columns:1fr}
+  .metrics{grid-template-columns:repeat(2,1fr)}
+  .two-col{grid-template-columns:1fr}
+  .sidebar{position:static}
+  .header-stats{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:560px){
+  .metrics{grid-template-columns:1fr}
+  .header-stats{grid-template-columns:repeat(2,1fr)}
+  .scenario-grid{grid-template-columns:1fr}
+}
+
+/* number tick animation */
+@keyframes tickUp{from{transform:translateY(6px);opacity:0}to{transform:translateY(0);opacity:1}}
+.tick{animation:tickUp .25s ease}
+</style>
 </head>
-<body class="bg-gray-900 text-gray-100 min-h-screen font-sans">
+<body>
+<div class="root">
 
-    <header class="border-b border-gray-800 bg-gray-950 sticky top-0 z-50">
-        <div class="max-w-6xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <h1 class="text-xl font-bold tracking-tight text-emerald-400">📊 BizUtility<span class="text-gray-400 text-sm font-normal">.asia</span></h1>
-            <nav class="flex space-x-2 bg-gray-900 p-1 rounded-lg border border-gray-800">
-                <button id="tab-income-btn" onclick="switchTab('income')" class="px-4 py-2 rounded-md text-sm font-medium transition-all bg-emerald-500 text-white shadow">
-                    Remote Worker Income Optimizer
-                </button>
-                <button id="tab-pallet-btn" onclick="switchTab('pallet')" class="px-4 py-2 rounded-md text-sm font-medium transition-all text-gray-400 hover:text-white">
-                    B2B Pallet Optimizer
-                </button>
-            </nav>
+  <!-- HEADER -->
+  <div class="header-row fade-up">
+    <div class="header-top">
+      <div>
+        <div class="badge" style="margin-bottom:.55rem">
+          <span class="pulse-dot"></span>
+          SEA Income Intelligence
         </div>
-    </header>
+        <div class="header-title-block">
+          <h1>Remote Worker &amp; Freelancer <span class="h1-accent">Income Optimizer</span></h1>
+        </div>
+        <p class="subtitle" style="margin-top:.3rem">Convert foreign revenue into Malaysian net pay — 2026 FX rates, EPF, SOCSO/EIS &amp; LHDN 2025/2026 tax bands.</p>
+      </div>
+    </div>
+    <!-- full-width stat bar -->
+    <div class="header-stats">
+      <div class="hstat" id="hs-gross">
+        <div class="hstat-label">Annual Gross</div>
+        <div class="hstat-val green" id="headline-gross">RM 0</div>
+        <div class="hstat-sub">before deductions</div>
+      </div>
+      <div class="hstat" id="hs-charge">
+        <div class="hstat-label">Chargeable Income</div>
+        <div class="hstat-val" id="headline-chargeable">RM 0</div>
+        <div class="hstat-sub">after relief &amp; EPF</div>
+      </div>
+      <div class="hstat" id="hs-net">
+        <div class="hstat-label">Net Take-Home</div>
+        <div class="hstat-val green" id="hs-net-val">RM 0</div>
+        <div class="hstat-sub" id="hs-net-sub">monthly</div>
+      </div>
+      <div class="hstat" id="hs-tax">
+        <div class="hstat-label">Annual Tax</div>
+        <div class="hstat-val red" id="hs-tax-val">RM 0</div>
+        <div class="hstat-sub" id="hs-eff-sub">0.00% effective rate</div>
+      </div>
+      <div class="hstat" id="hs-ret">
+        <div class="hstat-label">Retention Rate</div>
+        <div class="hstat-val blue" id="hs-ret-val">0%</div>
+        <div class="hstat-sub">of gross kept</div>
+      </div>
+    </div>
+  </div>
 
-    <main class="max-w-6xl mx-auto px-4 py-8">
-        
-        <section id="tab-income" class="space-y-6">
-            <div class="bg-gray-950 p-6 rounded-xl border border-gray-800 shadow-xl grid md:grid-cols-5 gap-8">
-                <div class="md:col-span-2 space-y-4">
-                    <h2 class="text-lg font-semibold text-emerald-400 border-b border-gray-800 pb-2">Salary Details</h2>
-                    
-                    <div>
-                        <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Monthly Contract Base</label>
-                        <div class="flex rounded-md shadow-sm">
-                            <select id="currency" onchange="calculateTax()" class="bg-gray-900 border border-gray-700 rounded-l-md px-3 py-2 text-sm focus:outline-none focus:border-emerald-500 text-white">
-                                <option value="USD">USD</option>
-                                <option value="SGD">SGD</option>
-                            </select>
-                            <input type="number" id="monthly-salary" value="3500" oninput="calculateTax()" class="w-full bg-gray-900 border-y border-r border-gray-700 rounded-r-md px-3 py-2 text-sm focus:outline-none focus:border-emerald-500 text-white">
-                        </div>
-                    </div>
+  <!-- MAIN LAYOUT -->
+  <div class="layout">
 
-                    <div>
-                        <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Custom Conversion Rate (to MYR)</label>
-                        <input type="number" id="fx-rate" value="4.70" step="0.01" oninput="calculateTax()" class="w-full bg-gray-900 border border-gray-700 rounded-md px-3 py-2 text-sm focus:outline-none focus:border-emerald-500 text-white">
-                        <p class="text-[11px] text-gray-500 mt-1">Default benchmark: 1 USD = 4.70 MYR / 1 SGD = 3.50 MYR</p>
-                    </div>
+    <!-- SIDEBAR -->
+    <aside class="fade-up d1">
+      <div class="sidebar">
+        <div class="sidebar-head">
+          <span class="sidebar-title">Compensation inputs</span>
+          <span class="live-indicator"><span class="live-dot-sm"></span>Live</span>
+        </div>
 
-                    <div class="pt-2">
-                        <label class="flex items-center space-x-3 cursor-pointer">
-                            <input type="checkbox" id="epf-check" checked onchange="calculateTax()" class="w-4 h-4 rounded text-emerald-500 bg-gray-900 border-gray-700 focus:ring-emerald-500">
-                            <span class="text-sm font-medium text-gray-300">Deduct Voluntary EPF (11%)</span>
-                        </label>
-                    </div>
-                </div>
+        <div class="form-group">
+          <label class="field-label" for="salaryInput">Monthly contract salary</label>
+          <input type="number" id="salaryInput" min="0" step="100" value="5000">
+        </div>
 
-                <div class="md:col-span-3 bg-gray-900/50 p-6 rounded-lg border border-gray-800/80 flex flex-col justify-between">
-                    <div>
-                        <h2 class="text-lg font-semibold text-gray-300 mb-4">Estimated Monthly Breakdown (MYR)</h2>
-                        <div class="space-y-3">
-                            <div class="flex justify-between text-sm border-b border-gray-800 pb-2">
-                                <span class="text-gray-400">Gross Monthly Revenue</span>
-                                <span id="out-gross" class="font-mono font-medium">RM 0.00</span>
-                            </div>
-                            <div class="flex justify-between text-sm border-b border-gray-800 pb-2 text-rose-400">
-                                <span>Estimated Income Tax (PCB)</span>
-                                <span id="out-tax" class="font-mono font-medium">-RM 0.00</span>
-                            </div>
-                            <div class="flex justify-between text-sm border-b border-gray-800 pb-2 text-rose-400">
-                                <span>Voluntary EPF Share</span>
-                                <span id="out-epf" class="font-mono font-medium">-RM 0.00</span>
-                            </div>
-                            <div class="flex justify-between text-sm border-b border-gray-800 pb-2 text-rose-400">
-                                <span>SOCSO / EIS Base Compliance</span>
-                                <span id="out-socso" class="font-mono font-medium">-RM 19.85</span>
-                            </div>
-                        </div>
-                    </div>
+        <!-- salary range slider -->
+        <div class="slider-wrap">
+          <div class="slider-row">
+            <span class="field-label" style="margin:0">Adjust salary</span>
+            <span class="slider-val" id="sliderDisplay">5,000</span>
+          </div>
+          <input type="range" id="salarySlider" min="500" max="50000" step="500" value="5000">
+        </div>
 
-                    <div class="mt-6 bg-emerald-950/30 border border-emerald-800/50 p-4 rounded-lg flex justify-between items-center">
-                        <div>
-                            <span class="block text-xs uppercase tracking-wider font-semibold text-emerald-400">Net Take-Home Pay</span>
-                            <span id="out-net" class="text-2xl font-bold font-mono text-emerald-300">RM 0.00</span>
-                        </div>
-                        <span class="text-xs bg-emerald-500/20 text-emerald-400 px-2 py-1 rounded border border-emerald-500/30">Liquid</span>
-                    </div>
-                </div>
+        <div class="field-row">
+          <div>
+            <label class="field-label" for="currencySelect">Currency</label>
+            <select id="currencySelect">
+              <option value="USD">🇺🇸 USD</option>
+              <option value="SGD">🇸🇬 SGD</option>
+              <option value="GBP">🇬🇧 GBP</option>
+              <option value="AUD">🇦🇺 AUD</option>
+              <option value="EUR">🇪🇺 EUR</option>
+            </select>
+          </div>
+          <div>
+            <label class="field-label" for="fxInput">FX to MYR</label>
+            <input type="number" id="fxInput" min="0" step="0.01" value="4.72">
+          </div>
+        </div>
+
+        <div class="toggle-box" id="epfBox">
+          <label class="toggle-row">
+            <span class="switch">
+              <input type="checkbox" id="epfCheck" checked>
+              <span class="switch-track"></span>
+              <span class="switch-thumb"></span>
+            </span>
+            <span>
+              <div class="toggle-name">Employee EPF deduction</div>
+              <div class="toggle-hint">Included before chargeable income.</div>
+            </span>
+          </label>
+          <div class="epf-sub" id="epfControls">
+            <select id="epfMode">
+              <option value="11">11% standard</option>
+              <option value="custom">Custom rate</option>
+            </select>
+            <input type="number" id="customEpf" min="0" max="100" step="0.1" value="11" disabled>
+          </div>
+        </div>
+
+        <div class="toggle-box" id="socsoBox">
+          <label class="toggle-row">
+            <span class="switch">
+              <input type="checkbox" id="socsoCheck" checked>
+              <span class="switch-track"></span>
+              <span class="switch-thumb"></span>
+            </span>
+            <span>
+              <div class="toggle-name">SOCSO / EIS insurance</div>
+              <div class="toggle-hint tip" data-tip="SOCSO ≤ RM19.85 · EIS ≤ RM9.90 per month">Capped monthly contributions.</div>
+            </span>
+          </label>
+        </div>
+      </div>
+    </aside>
+
+    <!-- RIGHT CONTENT -->
+    <section>
+
+      <!-- METRICS -->
+      <div class="metrics fade-up d2">
+        <div class="m-card">
+          <div class="m-label">Gross monthly</div>
+          <div class="m-val" id="grossMonthly">RM 0</div>
+          <div class="m-sub" id="grossSub">0 USD at 4.72</div>
+        </div>
+        <div class="m-card">
+          <div class="m-label">Statutory deductions</div>
+          <div class="deduct-rows">
+            <div class="dr"><span class="dr-lbl">PCB tax</span><span class="dr-val" id="taxMo">RM 0</span></div>
+            <div class="dr"><span class="dr-lbl">EPF</span><span class="dr-val" id="epfMo">RM 0</span></div>
+            <div class="dr"><span class="dr-lbl">SOCSO / EIS</span><span class="dr-val" id="socsoMo">RM 0</span></div>
+          </div>
+        </div>
+        <div class="m-card net">
+          <div class="m-label">Net take-home</div>
+          <div class="m-val" id="netMonthly">RM 0</div>
+          <div class="m-sub" id="netAnnual">RM 0 annually</div>
+        </div>
+        <div class="m-card">
+          <div class="m-label">Effective tax rate</div>
+          <div class="m-val" id="effRate">0.00%</div>
+          <div class="m-sub" id="annualTax">RM 0 per year</div>
+        </div>
+      </div>
+
+      <!-- SCENARIO COMPARE -->
+      <div class="scenario-section fade-up d3">
+        <div style="display:flex;justify-content:space-between;align-items:baseline">
+          <div>
+            <div class="panel-title">Salary scenarios</div>
+            <div class="panel-sub" style="margin-bottom:0">Click to load a preset — or keep typing your own.</div>
+          </div>
+        </div>
+        <div class="scenario-grid" id="scenarioGrid"></div>
+      </div>
+
+      <!-- FLOW BAR -->
+      <div class="prog-section fade-up d3">
+        <div class="prog-header">
+          <span class="prog-title">Monthly cash-flow map</span>
+          <span class="prog-pct" id="retentionPct">Net is 0% of gross</span>
+        </div>
+        <div class="track">
+          <div class="seg net" id="segNet" style="width:0%"></div>
+          <div class="seg tax" id="segTax" style="width:0%"></div>
+          <div class="seg epf" id="segEpf" style="width:0%"></div>
+          <div class="seg ins" id="segIns" style="width:0%"></div>
+        </div>
+        <div class="legend">
+          <div class="leg-item"><div class="leg-dot" style="background:#34d399"></div>Net take-home</div>
+          <div class="leg-item"><div class="leg-dot" style="background:#f87171"></div>Income tax</div>
+          <div class="leg-item"><div class="leg-dot" style="background:#60a5fa"></div>EPF</div>
+          <div class="leg-item"><div class="leg-dot" style="background:#fbbf24"></div>SOCSO / EIS</div>
+        </div>
+      </div>
+
+      <!-- TAX BANDS + AFFILIATE -->
+      <div class="two-col">
+        <div class="panel fade-up d4">
+          <div class="panel-title">LHDN 2025/2026 progressive tax brackets</div>
+          <div class="panel-sub" id="reliefLine">Standard relief: RM 9,000</div>
+          <div id="taxBands"></div>
+        </div>
+
+        <div class="panel fade-up d5">
+          <div class="aff-scan-line"></div>
+          <div class="aff-header">
+            <div>
+              <div class="panel-title">Optimize inbound invoices</div>
+              <div class="panel-sub" style="margin-bottom:0">FX leakage scan</div>
             </div>
+            <div class="aff-badge">Affiliate</div>
+          </div>
+          <p class="aff-desc">Traditional banks quietly extract 3–4% margins on foreign inward transfers. Compare the leakage against a modern multi-currency route before your next invoice lands.</p>
 
-            <div class="bg-gradient-to-r from-gray-950 to-emerald-950/20 border border-emerald-900/40 p-6 rounded-xl shadow-md flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                <div class="space-y-1">
-                    <h3 class="text-sm font-bold text-emerald-400 tracking-wide uppercase">💡 Stop Losing Margins on Remote Wire Transfers</h3>
-                    <p class="text-sm text-gray-400 max-w-2xl">Standard banks secretly charge up to 3.5% hidden markups on foreign contract incoming transfers. Save hundreds monthly by receiving SGD or USD payouts into localized account nodes via our compliance framework helper.</p>
-                </div>
-                <a href="https://wise.com" target="_blank" class="whitespace-nowrap bg-emerald-500 hover:bg-emerald-600 text-gray-950 font-bold px-5 py-2.5 rounded-lg text-sm transition shadow-lg tracking-wide">
-                    Compare Rates via Wise →
-                </a>
-            </div>
-        </section>
+          <table class="fx-table">
+            <thead>
+              <tr>
+                <th>Route</th>
+                <th>Monthly</th>
+                <th>Annual</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Traditional bank 3.5%</td>
+                <td class="loss" id="bankMo">RM 0</td>
+                <td class="loss" id="bankAn">RM 0</td>
+              </tr>
+              <tr>
+                <td>Modern route 0.6%</td>
+                <td id="modMo">RM 0</td>
+                <td id="modAn">RM 0</td>
+              </tr>
+              <tr class="savings-row">
+                <td>Potential savings</td>
+                <td id="savMo">RM 0</td>
+                <td id="savAn">RM 0</td>
+              </tr>
+            </tbody>
+          </table>
 
-        <section id="tab-pallet" class="hidden space-y-6">
-            <div class="bg-gray-950 p-6 rounded-xl border border-gray-800 shadow-xl grid md:grid-cols-5 gap-8">
-                <div class="md:col-span-2 space-y-4">
-                    <h2 class="text-lg font-semibold text-emerald-400 border-b border-gray-800 pb-2">Packaging Specs</h2>
-                    
-                    <div class="grid grid-cols-3 gap-2">
-                        <div>
-                            <label class="block text-[11px] font-semibold text-gray-400 uppercase mb-1">Length (cm)</label>
-                            <input type="number" id="box-l" value="40" oninput="calculatePallet()" class="w-full bg-gray-900 border border-gray-700 rounded-md px-3 py-2 text-sm focus:outline-none focus:border-emerald-500 text-white text-center">
-                        </div>
-                        <div>
-                            <label class="block text-[11px] font-semibold text-gray-400 uppercase mb-1">Width (cm)</label>
-                            <input type="number" id="box-w" value="30" oninput="calculatePallet()" class="w-full bg-gray-900 border border-gray-700 rounded-md px-3 py-2 text-sm focus:outline-none focus:border-emerald-500 text-white text-center">
-                        </div>
-                        <div>
-                            <label class="block text-[11px] font-semibold text-gray-400 uppercase mb-1">Height (cm)</label>
-                            <input type="number" id="box-h" value="25" oninput="calculatePallet()" class="w-full bg-gray-900 border border-gray-700 rounded-md px-3 py-2 text-sm focus:outline-none focus:border-emerald-500 text-white text-center">
-                        </div>
-                    </div>
+          <a class="cta-btn" href="https://wise.com/business/?utm_source=sea_income_optimizer&utm_medium=affiliate&utm_campaign=inbound_invoices" target="_blank" rel="noopener noreferrer">
+            Compare multi-currency routes →
+          </a>
+        </div>
+      </div>
 
-                    <div>
-                        <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Unit Gross Weight (kg)</label>
-                        <input type="number" id="box-kg" value="12" oninput="calculatePallet()" class="w-full bg-gray-900 border border-gray-700 rounded-md px-3 py-2 text-sm focus:outline-none focus:border-emerald-500 text-white">
-                    </div>
+    </section>
+  </div>
+</div>
 
-                    <div>
-                        <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Pallet Standard Footprint</label>
-                        <select id="pallet-type" onchange="updatePalletDefault()" class="w-full bg-gray-900 border border-gray-700 rounded-md px-3 py-2 text-sm focus:outline-none focus:border-emerald-500 text-white">
-                            <option value="MY">Malaysian Standard (120 x 100 cm)</option>
-                            <option value="ISO">ISO Standard European (120 x 80 cm)</option>
-                        </select>
-                    </div>
+<script>
+const fxMap={USD:4.72,SGD:3.51,GBP:5.95,EUR:5.12,AUD:3.10};
+const brackets=[
+  {from:0,to:5000,rate:0},
+  {from:5000,to:20000,rate:0.01},
+  {from:20000,to:35000,rate:0.03},
+  {from:35000,to:50000,rate:0.06},
+  {from:50000,to:70000,rate:0.11},
+  {from:70000,to:100000,rate:0.19},
+  {from:100000,to:400000,rate:0.25},
+  {from:400000,to:600000,rate:0.26},
+  {from:600000,to:2000000,rate:0.28},
+  {from:2000000,to:Infinity,rate:0.30}
+];
 
-                    <div>
-                        <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Max Allowable Height Stack (cm)</label>
-                        <input type="number" id="max-height" value="160" oninput="calculatePallet()" class="w-full bg-gray-900 border border-gray-700 rounded-md px-3 py-2 text-sm focus:outline-none focus:border-emerald-500 text-white">
-                    </div>
-                </div>
+const scenarios=[
+  {label:'Junior freelancer',salary:2000,currency:'USD'},
+  {label:'Mid-level remote',salary:4500,currency:'USD'},
+  {label:'Senior remote',salary:8000,currency:'USD'},
+  {label:'SGD contractor',salary:4000,currency:'SGD'},
+  {label:'GBP consultant',salary:3500,currency:'GBP'},
+  {label:'Top earner',salary:15000,currency:'USD'},
+];
 
-                <div class="md:col-span-3 bg-gray-900/50 p-6 rounded-lg border border-gray-800/80 flex flex-col justify-between">
-                    <div>
-                        <h2 class="text-lg font-semibold text-gray-300 mb-4">Pallet Utilization Metrics</h2>
-                        <div class="grid grid-cols-2 gap-4 mb-6">
-                            <div class="bg-gray-950 p-4 rounded-md border border-gray-800 text-center">
-                                <span class="block text-xs text-gray-400 uppercase">Boxes Per Layer</span>
-                                <span id="out-layer-boxes" class="text-xl font-bold font-mono text-emerald-400">0</span>
-                            </div>
-                            <div class="bg-gray-950 p-4 rounded-md border border-gray-800 text-center">
-                                <span class="block text-xs text-gray-400 uppercase">Max Layer Stack</span>
-                                <span id="out-stack-layers" class="text-xl font-bold font-mono text-emerald-400">0</span>
-                            </div>
-                        </div>
-                        
-                        <div class="space-y-3">
-                            <div class="flex justify-between text-sm border-b border-gray-800 pb-2">
-                                <span class="text-gray-400">Total Yield Pack Load</span>
-                                <span id="out-total-boxes" class="font-mono font-bold text-emerald-400">0 Units</span>
-                            </div>
-                            <div class="flex justify-between text-sm border-b border-gray-800 pb-2">
-                                <span class="text-gray-400">Total Cargo Net Weight</span>
-                                <span id="out-total-weight" class="font-mono">0.00 kg</span>
-                            </div>
-                            <div class="flex justify-between text-sm border-b border-gray-800 pb-2">
-                                <span class="text-gray-400">Pallet Surface Footprint Efficiency</span>
-                                <span id="out-efficiency" class="font-mono text-amber-400">0.00%</span>
-                            </div>
-                        </div>
-                    </div>
+const rm=(v,d=0)=>'RM '+Math.max(0,v||0).toLocaleString('en-MY',{minimumFractionDigits:d,maximumFractionDigits:d});
+const pct=(v,d=1)=>(v*100).toFixed(d)+'%';
+const num=el=>Math.max(0,Number(el.value)||0);
+const g=id=>document.getElementById(id);
 
-                    <div class="mt-6 text-center text-xs text-gray-500 border-t border-gray-800 pt-4">
-                        *Calculations optimized for standard 2D orthogonal grid packaging limits.
-                    </div>
-                </div>
-            </div>
-        </section>
+// animated counter
+function animateVal(el,newText){
+  el.classList.remove('tick');
+  void el.offsetWidth;
+  el.textContent=newText;
+  el.classList.add('tick');
+}
 
-    </main>
+function flashEl(el){
+  el.classList.remove('flash');
+  void el.offsetWidth;
+  el.classList.add('flash');
+}
 
-    <script>
-        // Tab Router Engine
-        function switchTab(tab) {
-            const incomeTab = document.getElementById('tab-income');
-            const palletTab = document.getElementById('tab-pallet');
-            const incomeBtn = document.getElementById('tab-income-btn');
-            const palletBtn = document.getElementById('tab-pallet-btn');
+function calcTax(ci){
+  let total=0;
+  const rows=brackets.map(b=>{
+    const taxable=Math.max(0,Math.min(ci,b.to)-b.from);
+    const bandTax=taxable*b.rate;
+    total+=bandTax;
+    return{...b,taxable,bandTax};
+  });
+  return{total,rows};
+}
 
-            if (tab === 'income') {
-                incomeTab.classList.remove('hidden');
-                palletTab.classList.add('hidden');
-                incomeBtn.className = "px-4 py-2 rounded-md text-sm font-medium transition-all bg-emerald-500 text-white shadow";
-                palletBtn.className = "px-4 py-2 rounded-md text-sm font-medium transition-all text-gray-400 hover:text-white";
-            } else {
-                incomeTab.classList.add('hidden');
-                palletTab.classList.remove('hidden');
-                palletBtn.className = "px-4 py-2 rounded-md text-sm font-medium transition-all bg-emerald-500 text-white shadow";
-                incomeBtn.className = "px-4 py-2 rounded-md text-sm font-medium transition-all text-gray-400 hover:text-white";
-                calculatePallet();
-            }
-        }
+function bandLabel(b){
+  if(b.to===Infinity)return'Above RM 2,000,000';
+  if(b.from===0)return'First RM 5,000';
+  return'RM '+b.from.toLocaleString('en-MY')+' – RM '+b.to.toLocaleString('en-MY');
+}
 
-        // Base currency rate switcher shortcut
-        function updatePalletDefault() {
-            calculatePallet();
-        }
+function renderBands(rows){
+  g('taxBands').innerHTML=rows.map((r,i)=>{
+    const a=r.taxable>0;
+    return`<div class="band-row${a?' active':''}" style="animation-delay:${i*30}ms">
+      <div>
+        <div class="band-name${a?' active':''}">${bandLabel(r)}</div>
+        <div class="band-taxable">Taxable: ${rm(r.taxable,2)}</div>
+      </div>
+      <div class="band-rate${a?' active':''}">${(r.rate*100).toFixed(0)}%</div>
+      <div class="band-tax${a?' active':''}">${rm(r.bandTax,2)}</div>
+    </div>`;
+  }).join('');
+}
 
-        function currencyChange() {
-            const cur = document.getElementById('currency').value;
-            const rateInput = document.getElementById('fx-rate');
-            if (cur === 'USD') rateInput.value = "4.70";
-            if (cur === 'SGD') rateInput.value = "3.50";
-            calculateTax();
-        }
-        document.getElementById('currency').addEventListener('change', currencyChange);
+function buildScenarios(){
+  const grid=g('scenarioGrid');
+  const cur=g('currencySelect').value;
+  const curSal=num(g('salaryInput'));
+  grid.innerHTML=scenarios.map((s,i)=>{
+    const isActive=s.salary===curSal&&s.currency===cur;
+    return`<div class="sc-card${isActive?' active':''}" onclick="loadScenario(${i})">
+      <div class="sc-label">${s.label}</div>
+      <div class="sc-val">${s.salary.toLocaleString('en-MY')} ${s.currency}</div>
+      <div class="sc-curr">≈ RM ${(s.salary*fxMap[s.currency]).toLocaleString('en-MY',{maximumFractionDigits:0})}/mo</div>
+      <div class="sc-badge">Active</div>
+    </div>`;
+  }).join('');
+}
 
-        // Malaysian Income Tax Engine 
-        function calculateTax() {
-            const monthlySalary = parseFloat(document.getElementById('monthly-salary').value) || 0;
-            const fxRate = parseFloat(document.getElementById('fx-rate').value) || 0;
-            const isEpfChecked = document.getElementById('epf-check').checked;
+window.loadScenario=function(i){
+  const s=scenarios[i];
+  g('salaryInput').value=s.salary;
+  g('salarySlider').value=Math.min(50000,s.salary);
+  g('sliderDisplay').textContent=s.salary.toLocaleString('en-MY');
+  g('currencySelect').value=s.currency;
+  g('fxInput').value=fxMap[s.currency].toFixed(2);
+  calc();
+};
 
-            const monthlyGrossMYR = monthlySalary * fxRate;
-            const annualGrossMYR = monthlyGrossMYR * 12;
+function calc(){
+  const sal=num(g('salaryInput'));
+  const fx=num(g('fxInput'));
+  const cur=g('currencySelect').value;
+  const gross=sal*fx;
+  const annGross=gross*12;
 
-            // Base deductions configuration
-            const individualRelief = 9000;
-            const monthlySocso = 19.85; // Baseline automatic ceiling standard
-            const annualSocso = monthlySocso * 12;
+  const epfRate=g('epfMode').value==='custom'?num(g('customEpf'))/100:0.11;
+  const moEpf=g('epfCheck').checked?gross*epfRate:0;
+  const moSocso=g('socsoCheck').checked?Math.min(gross*0.005,19.85):0;
+  const moEis=g('socsoCheck').checked?Math.min(gross*0.002,9.90):0;
+  const moIns=moSocso+moEis;
 
-            let chargeableIncome = annualGrossMYR - individualRelief - annualSocso;
-            if (chargeableIncome < 0) chargeableIncome = 0;
+  const relief=9000;
+  const annDed=(moEpf+moIns)*12;
+  const ci=Math.max(0,annGross-relief-annDed);
+  const{total:annTax,rows}=calcTax(ci);
+  const moTax=annTax/12;
+  const net=Math.max(0,gross-moTax-moEpf-moIns);
+  const effRate=annGross>0?annTax/annGross:0;
+  const retRate=gross>0?net/gross:0;
+  const taxSh=gross>0?moTax/gross:0;
+  const epfSh=gross>0?moEpf/gross:0;
+  const insSh=gross>0?moIns/gross:0;
+  const bankMo=gross*0.035,modMo=gross*0.006,savMo=bankMo-modMo;
 
-            // Progressive Tax Bracket Logic (Malaysia)
-            let annualTax = 0;
-            let income = chargeableIncome;
+  // update header stat bar
+  const hstats=['hs-gross','hs-charge','hs-net','hs-tax','hs-ret'];
+  hstats.forEach(id=>g(id).classList.toggle('lit',annGross>0));
 
-            const brackets = [
-                { limit: 5000, rate: 0 },
-                { limit: 15000, rate: 0.01 },
-                { limit: 15000, rate: 0.03 },
-                { limit: 15000, rate: 0.06 },
-                { limit: 20000, rate: 0.11 },
-                { limit: 30000, rate: 0.19 },
-                { limit: 150000, rate: 0.25 },
-                { limit: 150000, rate: 0.26 },
-                { limit: 400000, rate: 0.28 },
-                { limit: Infinity, rate: 0.30 }
-            ];
+  const vals=[
+    ['headline-gross',rm(annGross)],
+    ['headline-chargeable',rm(ci)],
+    ['hs-net-val',rm(net)],
+    ['hs-tax-val',rm(annTax,2)],
+    ['hs-ret-val',pct(retRate,1)],
+    ['grossMonthly',rm(gross)],
+    ['netMonthly',rm(net)],
+    ['effRate',pct(effRate,2)],
+  ];
+  vals.forEach(([id,v])=>{
+    const el=g(id);if(!el)return;
+    if(el.textContent!==v){animateVal(el,v);flashEl(el)}
+  });
+  g('hs-net-sub').textContent=rm(net*12)+' annually';
+  g('hs-eff-sub').textContent=pct(effRate,2)+' effective rate';
 
-            for (let i = 0; i < brackets.length; i++) {
-                if (income <= 0) break;
-                let chunk = Math.min(income, brackets[i].limit);
-                annualTax += chunk * brackets[i].rate;
-                income -= chunk;
-            }
+  g('grossSub').textContent=sal.toLocaleString('en-MY')+' '+cur+' at '+fx.toFixed(2);
+  g('taxMo').textContent=rm(moTax,2);
+  g('epfMo').textContent=rm(moEpf,2);
+  g('socsoMo').textContent=rm(moIns,2);
+  g('netAnnual').textContent=rm(net*12)+' annually';
+  g('annualTax').textContent=rm(annTax,2)+' per year';
+  g('reliefLine').textContent='Standard relief: RM 9,000  ·  EPF/SOCSO/EIS: '+rm(annDed);
+  g('retentionPct').textContent='Net is '+pct(retRate)+' of gross';
 
-            const monthlyTax = annualTax / 12;
-            const monthlyEpf = isEpfChecked ? (monthlyGrossMYR * 0.11) : 0;
-            const netTakeHome = monthlyGrossMYR - monthlyTax - monthlyEpf - monthlySocso;
+  const s=v=>Math.min(100,v*100).toFixed(1)+'%';
+  g('segNet').style.width=s(retRate);
+  g('segTax').style.width=s(taxSh);
+  g('segEpf').style.width=s(epfSh);
+  g('segIns').style.width=s(insSh);
 
-            // Output rendering
-            document.getElementById('out-gross').innerText = 'RM ' + monthlyGrossMYR.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-            document.getElementById('out-tax').innerText = '-RM ' + monthlyTax.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-            document.getElementById('out-epf').innerText = '-RM ' + monthlyEpf.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-            document.getElementById('out-net').innerText = 'RM ' + netTakeHome.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-        }
+  g('bankMo').textContent=rm(bankMo,2);g('bankAn').textContent=rm(bankMo*12,2);
+  g('modMo').textContent=rm(modMo,2);g('modAn').textContent=rm(modMo*12,2);
+  g('savMo').textContent=rm(savMo,2);g('savAn').textContent=rm(savMo*12,2);
 
-        // B2B 2D Orthogonal Pallet Engine
-        function calculatePallet() {
-            const boxL = parseFloat(document.getElementById('box-l').value) || 0;
-            const boxW = parseFloat(document.getElementById('box-w').value) || 0;
-            const boxH = parseFloat(document.getElementById('box-h').value) || 0;
-            const boxKg = parseFloat(document.getElementById('box-kg').value) || 0;
-            const pType = document.getElementById('pallet-type').value;
-            const maxHeight = parseFloat(document.getElementById('max-height').value) || 0;
+  renderBands(rows);
+  buildScenarios();
+}
 
-            // Assign baseline target footprints
-            let pLength = 120;
-            let pWidth = (pType === 'MY') ? 100 : 80;
+// --- EVENTS ---
+g('currencySelect').addEventListener('change',()=>{
+  g('fxInput').value=fxMap[g('currencySelect').value].toFixed(2);calc();
+});
 
-            if(boxL <= 0 || boxW <= 0 || boxH <= 0) return;
+g('salarySlider').addEventListener('input',()=>{
+  const v=Number(g('salarySlider').value);
+  g('salaryInput').value=v;
+  g('sliderDisplay').textContent=v.toLocaleString('en-MY');
+  calc();
+});
 
-            // 2D Layout Evaluation Optimization (Standard vs Rotated layouts bounds)
-            let option1 = Math.floor(pLength / boxL) * Math.floor(pWidth / boxW);
-            let option2 = Math.floor(pLength / boxW) * Math.floor(pWidth / boxL);
-            let boxesPerLayer = Math.max(option1, option2);
+g('salaryInput').addEventListener('input',()=>{
+  const v=Math.min(50000,num(g('salaryInput')));
+  g('salarySlider').value=v;
+  g('sliderDisplay').textContent=num(g('salaryInput')).toLocaleString('en-MY');
+  calc();
+});
 
-            let verticalLayers = Math.floor(maxHeight / boxH);
-            if(verticalLayers < 0) verticalLayers = 0;
+g('epfMode').addEventListener('change',()=>{
+  const custom=g('epfMode').value==='custom';
+  g('customEpf').disabled=!custom;
+  if(!custom)g('customEpf').value='11';
+  calc();
+});
 
-            let totalBoxes = boxesPerLayer * verticalLayers;
-            let totalWeight = totalBoxes * boxKg;
+g('epfCheck').addEventListener('change',()=>{
+  g('epfBox').classList.toggle('on',g('epfCheck').checked);
+  g('epfControls').classList.toggle('hidden',!g('epfCheck').checked);
+  calc();
+});
 
-            let footprintArea = pLength * pWidth;
-            let boxArea = boxL * boxW;
-            let efficiency = footprintArea > 0 ? ((boxesPerLayer * boxArea) / footprintArea) * 100 : 0;
+g('socsoCheck').addEventListener('change',()=>{
+  g('socsoBox').classList.toggle('on',g('socsoCheck').checked);
+  calc();
+});
 
-            // Output rendering
-            document.getElementById('out-layer-boxes').innerText = boxesPerLayer;
-            document.getElementById('out-stack-layers').innerText = verticalLayers;
-            document.getElementById('out-total-boxes').innerText = totalBoxes + ' Units';
-            document.getElementById('out-total-weight').innerText = totalWeight.toFixed(2) + ' kg';
-            document.getElementById('out-efficiency').innerText = efficiency.toFixed(2) + '%';
-        }
+g('fxInput').addEventListener('input',calc);
+g('customEpf').addEventListener('input',calc);
 
-        // Initialize engine startup parameters
-        calculateTax();
-    </script>
+// init
+g('epfBox').classList.add('on');
+g('socsoBox').classList.add('on');
+calc();
+</script>
 </body>
 </html>
