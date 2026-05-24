@@ -251,6 +251,41 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
   .scenario-grid{grid-template-columns:1fr}
 }
 
+/* --- EDUCATIONAL SECTION --- */
+.edu-section{
+  margin-top:2rem;padding:2rem;
+  background:linear-gradient(135deg,rgba(52,211,153,.06) 0%,var(--card) 40%,rgba(96,165,250,.05) 100%);
+  border:1px solid var(--border);border-radius:var(--radius-xl);
+  position:relative;overflow:hidden
+}
+.edu-section::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--green),var(--blue),var(--purple));
+  opacity:.7
+}
+.edu-section::after{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 50% 60% at 0% 0%,rgba(52,211,153,.07),transparent 60%),
+    radial-gradient(ellipse 40% 50% at 100% 100%,rgba(96,165,250,.06),transparent 60%)
+}
+.edu-header{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;position:relative;z-index:1}
+.edu-icon{font-size:28px;width:52px;height:52px;display:flex;align-items:center;justify-content:center;background:var(--green-bg);border:1px solid var(--green-border);border-radius:var(--radius-lg);flex-shrink:0}
+.edu-title{font-size:17px;font-weight:700;color:#fff;margin-bottom:3px}
+.edu-subtitle{font-size:12px;color:var(--text3)}
+.edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.5rem;position:relative;z-index:1}
+.edu-card{background:rgba(0,0,0,.25);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.25rem;transition:border-color .3s,transform .3s}
+.edu-card:hover{border-color:var(--border-bright);transform:translateY(-2px)}
+.edu-card-icon{font-size:20px;margin-bottom:.6rem}
+.edu-card-title{font-size:13px;font-weight:700;color:#fff;margin-bottom:.65rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)}
+.edu-card p{font-size:13px;color:var(--text2);line-height:1.75}
+.edu-card strong{color:var(--text);font-weight:600}
+.edu-card em{color:var(--green);font-style:normal;font-weight:500}
+.edu-tags{display:flex;flex-wrap:wrap;gap:8px;position:relative;z-index:1;padding-top:1.25rem;border-top:1px solid var(--border)}
+.edu-tag{font-size:11px;font-weight:500;color:var(--text3);background:rgba(0,0,0,.3);border:1px solid var(--border);border-radius:20px;padding:3px 11px;transition:color .2s,border-color .2s,background .2s;cursor:default}
+.edu-tag:hover{color:var(--green);border-color:var(--green-border);background:var(--green-bg)}
+@media(max-width:700px){.edu-grid{grid-template-columns:1fr}}
+
 /* number tick animation */
 @keyframes tickUp{from{transform:translateY(6px);opacity:0}to{transform:translateY(0);opacity:1}}
 .tick{animation:tickUp .25s ease}
@@ -497,6 +532,43 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
 
     </section>
   </div>
+
+  <!-- EDUCATIONAL SECTION -->
+  <div class="edu-section fade-up d6">
+    <div class="edu-header">
+      <div class="edu-icon">📘</div>
+      <div>
+        <h2 class="edu-title">Guide to Foreign Contract Income &amp; Tax Compliance</h2>
+        <p class="edu-subtitle">For Malaysian remote workers &amp; freelancers earning in foreign currencies</p>
+      </div>
+    </div>
+
+    <div class="edu-grid">
+      <div class="edu-card">
+        <div class="edu-card-icon">⚖️</div>
+        <h3 class="edu-card-title">Is Foreign Income Taxable in Malaysia?</h3>
+        <p>As a remote software engineer, data architect, or designer working from Malaysia for a foreign entity (US, Singapore, Europe), your income is classified as <strong>Paragraph 4(a) Gains or Profits from a Business</strong> or independent contract work. Because the work is physically executed within Malaysia, it is considered derived locally and is fully subject to <strong>LHDN progressive income tax rates</strong>.</p>
+        <p style="margin-top:.75rem">Utilizing a monthly <em>Potongan Cukai Berjadual (PCB)</em> simulator helps remote professionals manually set aside tax reserves to avoid heavy penalties or overwhelming lump-sum payments when filing the annual Form B or Form BE.</p>
+      </div>
+
+      <div class="edu-card">
+        <div class="edu-card-icon">🏦</div>
+        <h3 class="edu-card-title">Optimizing Voluntary EPF &amp; SOCSO Compliance</h3>
+        <p>Foreign companies are not legally obligated to remit statutory contributions to the <strong>Employees Provident Fund (EPF)</strong> or <strong>PERKESO (SOCSO/EIS)</strong>. However, Malaysian freelancers can opt into the <em>i-Saraan</em> program or voluntary self-contributions.</p>
+        <p style="margin-top:.75rem">Voluntary EPF contributions up to 11% (or custom thresholds) not only safeguard retirement yields but also unlock specific tax relief assessment quotas up to <strong>RM 4,000 annually</strong>, lowering your true net chargeable income.</p>
+      </div>
+    </div>
+
+    <div class="edu-tags">
+      <span class="edu-tag">#MalaysiaRemoteTaxCalculator</span>
+      <span class="edu-tag">#LHDNProgressiveTax2026</span>
+      <span class="edu-tag">#USDSGDToMYRConversion</span>
+      <span class="edu-tag">#FreelancerPCBEstimation</span>
+      <span class="edu-tag">#EPFiSaraan</span>
+      <span class="edu-tag">#SOCSOVoluntary</span>
+    </div>
+  </div>
+
 </div>
 
 <script>
