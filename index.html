@@ -2,197 +2,281 @@
 <html lang="en">
 <head>
   <meta name="google-site-verification" content="2VXrcruvgmnf40a2d1dGNdukKlYWS2NH_BzkOGscN1M" />
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SEA Remote Worker & Freelancer Income Optimizer</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SEA Remote Worker & Malaysian Salary Income Optimizer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-
 :root{
-  --bg:#060d1f;
-  --bg2:#0e1a2e;
-  --bg3:#0a1225;
-  --card:#111d33;
-  --border:rgba(99,130,180,.18);
-  --border-bright:rgba(99,130,180,.32);
+  --bg:#060d1f;--bg2:#0e1a2e;--bg3:#0a1225;--card:#111d33;
+  --border:rgba(99,130,180,.18);--border-bright:rgba(99,130,180,.32);
   --text:#e8f0fe;--text2:#8fa8cc;--text3:#4d6a8a;
   --green:#34d399;--green2:#10b981;--green-bg:rgba(52,211,153,.08);--green-border:rgba(52,211,153,.22);
-  --red:#f87171;--blue:#60a5fa;--amber:#fbbf24;--purple:#a78bfa;
-  --radius:10px;--radius-lg:14px;--radius-xl:18px
+  --blue:#60a5fa;--blue-bg:rgba(96,165,250,.08);--blue-border:rgba(96,165,250,.22);
+  --red:#f87171;--amber:#fbbf24;--purple:#a78bfa;
+  --radius:10px;--radius-lg:14px;--radius-xl:18px;
+  --accent:var(--green);--accent-bg:var(--green-bg);--accent-border:var(--green-border)
 }
-
 body{font-family:'Inter',ui-sans-serif,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.6;min-height:100vh;overflow-x:hidden}
-
-/* animated starfield background */
-body::before{
-  content:'';position:fixed;inset:0;
-  background:
-    radial-gradient(ellipse 80% 50% at 20% 10%, rgba(52,211,153,.06) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(96,165,250,.05) 0%, transparent 60%),
-    radial-gradient(ellipse 40% 60% at 50% 50%, rgba(167,139,250,.04) 0%, transparent 70%);
-  pointer-events:none;z-index:0;animation:bgPulse 8s ease-in-out infinite alternate
-}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 80% 50% at 20% 10%,rgba(52,211,153,.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(96,165,250,.05) 0%,transparent 60%),radial-gradient(ellipse 40% 60% at 50% 50%,rgba(167,139,250,.04) 0%,transparent 70%);pointer-events:none;z-index:0;animation:bgPulse 8s ease-in-out infinite alternate}
 @keyframes bgPulse{from{opacity:.6}to{opacity:1}}
-
-/* grid overlay */
-body::after{
-  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
-  background-image:linear-gradient(rgba(99,130,180,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(99,130,180,.04) 1px,transparent 1px);
-  background-size:48px 48px
-}
-
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background-image:linear-gradient(rgba(99,130,180,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(99,130,180,.04) 1px,transparent 1px);background-size:48px 48px}
 .root{position:relative;z-index:1;max-width:1240px;margin:0 auto;padding:2rem 1.5rem}
 
-/* --- PAGE ENTER ANIMATION --- */
+/* PAGE TABS */
+.page-tabs{display:flex;gap:0;margin-bottom:2rem;border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--border);background:var(--card)}
+.tab-btn{flex:1;padding:.9rem 1.5rem;font-size:13px;font-weight:600;color:var(--text2);background:none;border:none;cursor:pointer;transition:all .25s;display:flex;align-items:center;justify-content:center;gap:8px;letter-spacing:.01em;position:relative;border-right:1px solid var(--border)}
+.tab-btn:last-child{border-right:none}
+.tab-btn::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:transparent;transition:background .25s}
+.tab-btn.active-foreign{color:#fff;background:var(--green-bg)}
+.tab-btn.active-foreign::after{background:linear-gradient(90deg,var(--green),var(--blue))}
+.tab-btn.active-local{color:#fff;background:var(--blue-bg)}
+.tab-btn.active-local::after{background:linear-gradient(90deg,var(--blue),var(--purple))}
+.tab-btn:hover:not(.active-foreign):not(.active-local){background:rgba(255,255,255,.03);color:var(--text)}
+.tab-icon{font-size:16px}
+.tab-desc{font-size:10px;color:var(--text3);font-weight:500;margin-top:1px}
+
+/* PAGE PANELS */
+.page{display:none}
+.page.active{display:block}
+
+/* ANIMATIONS */
 .fade-up{opacity:0;transform:translateY(20px);animation:fadeUp .6s cubic-bezier(.22,.68,0,1.2) forwards}
 .fade-up.d1{animation-delay:.05s}.fade-up.d2{animation-delay:.12s}.fade-up.d3{animation-delay:.19s}
 .fade-up.d4{animation-delay:.26s}.fade-up.d5{animation-delay:.33s}.fade-up.d6{animation-delay:.4s}
 @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
-
-/* --- HEADER --- */
-.header-row{margin-bottom:2rem;padding-bottom:1.75rem;border-bottom:1px solid var(--border)}
-.header-top{display:flex;align-items:center;justify-content:space-between;gap:1.5rem;margin-bottom:1.25rem;flex-wrap:wrap}
-.badge{display:inline-flex;align-items:center;gap:7px;background:var(--green-bg);color:var(--green);font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:4px 13px;border-radius:20px;border:1px solid var(--green-border)}
-.pulse-dot{width:6px;height:6px;border-radius:50%;background:var(--green);position:relative}
-.pulse-dot::after{content:'';position:absolute;inset:-3px;border-radius:50%;background:var(--green);opacity:.4;animation:pulseRing 1.8s ease-out infinite}
+@keyframes tickUp{from{transform:translateY(6px);opacity:0}to{transform:translateY(0);opacity:1}}
+.tick{animation:tickUp .25s ease}
+.m-val.flash{animation:valFlash .4s ease}
+@keyframes valFlash{0%{filter:brightness(1)}40%{filter:brightness(1.6) drop-shadow(0 0 6px currentColor)}100%{filter:brightness(1)}}
 @keyframes pulseRing{0%{transform:scale(1);opacity:.4}100%{transform:scale(2.4);opacity:0}}
-.header-title-block{display:flex;align-items:baseline;gap:1rem;flex-wrap:wrap}
-h1{font-size:26px;font-weight:700;color:#fff;letter-spacing:-.025em;line-height:1.2;white-space:nowrap}
-.h1-accent{background:linear-gradient(135deg,var(--green),var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent}
-.subtitle{font-size:13px;color:var(--text2);line-height:1.5}
+@keyframes livePulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(52,211,153,.5)}50%{opacity:.7;box-shadow:0 0 0 4px rgba(52,211,153,0)}}
+@keyframes bluePulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(96,165,250,.5)}50%{opacity:.7;box-shadow:0 0 0 4px rgba(96,165,250,0)}}
+@keyframes bgPulse2{from{opacity:.6}to{opacity:1}}
+@keyframes scanAff{0%{left:-40%}100%{left:140%}}
 
-/* header stat bar */
+/* HERO BANNER FOR LOCAL SALARY */
+.l-hero{position:relative;background:var(--card);border:1px solid var(--border);border-radius:var(--radius-xl);padding:2rem;margin-bottom:2rem;overflow:hidden}
+.l-hero-glow{position:absolute;top:0;right:0;width:300px;height:300px;background:radial-gradient(circle, rgba(96,165,250,0.08) 0%, transparent 70%);pointer-events:none}
+.l-hero-content{position:relative;z-index:2}
+.l-hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:1.2rem}
+.l-chip{font-size:11px;font-weight:600;color:var(--text2);background:var(--bg3);border:1px solid var(--border);padding:4px 12px;border-radius:20px}
+
+/* HEADER */
+.header-row{margin-bottom:2rem;padding-bottom:1.75rem;border-bottom:1px solid var(--border)}
+.header-top{display:flex;align-items:flex-start;justify-content:space-between;gap:1.5rem;margin-bottom:1.25rem;flex-wrap:wrap}
+.badge{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:4px 13px;border-radius:20px;margin-bottom:.55rem}
+.badge.green{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
+.badge.blue{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-border)}
+.pulse-dot{width:6px;height:6px;border-radius:50%;position:relative}
+.pulse-dot.green{background:var(--green)}
+.pulse-dot.green::after{content:'';position:absolute;inset:-3px;border-radius:50%;background:var(--green);opacity:.4;animation:pulseRing 1.8s ease-out infinite}
+.pulse-dot.blue{background:var(--blue)}
+.pulse-dot.blue::after{content:'';position:absolute;inset:-3px;border-radius:50%;background:var(--blue);opacity:.4;animation:pulseRing 1.8s ease-out infinite}
+h1{font-size:26px;font-weight:700;color:#fff;letter-spacing:-.025em;line-height:1.2}
+.h1-accent-green{background:linear-gradient(135deg,var(--green),var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent}
+.h1-accent-blue{background:linear-gradient(135deg,var(--blue),var(--purple));-webkit-background-clip:text;background-clip:text;color:transparent}
+.subtitle{font-size:13px;color:var(--text2);line-height:1.5;margin-top:.3rem}
+
+/* STAT BAR */
 .header-stats{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}
 .hstat{background:var(--card);padding:.85rem 1.1rem;position:relative;transition:background .3s}
 .hstat::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:transparent;transition:background .3s}
-.hstat.lit::before{background:linear-gradient(90deg,var(--green),var(--blue))}
-.hstat.lit{background:rgba(52,211,153,.06)}
+.hstat.lit-green::before{background:linear-gradient(90deg,var(--green),var(--blue))}
+.hstat.lit-green{background:rgba(52,211,153,.06)}
+.hstat.lit-blue::before{background:linear-gradient(90deg,var(--blue),var(--purple))}
+.hstat.lit-blue{background:rgba(96,165,250,.06)}
 .hstat-label{font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--text3);margin-bottom:5px}
 .hstat-val{font-size:18px;font-weight:700;color:#fff;transition:color .3s}
-.hstat-val.green{color:var(--green)}
-.hstat-val.red{color:var(--red)}
-.hstat-val.blue{color:var(--blue)}
+.hstat-val.green{color:var(--green)}.hstat-val.red{color:var(--red)}.hstat-val.blue{color:var(--blue)}
 .hstat-sub{font-size:11px;color:var(--text3);margin-top:3px}
 
-/* --- LAYOUT --- */
+/* LAYOUT */
 .layout{display:grid;grid-template-columns:310px 1fr;gap:1.5rem;align-items:start}
-
-/* --- SIDEBAR --- */
 .sidebar{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-xl);padding:1.4rem;position:sticky;top:1.5rem}
 .sidebar-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem;padding-bottom:1rem;border-bottom:1px solid var(--border)}
 .sidebar-title{font-size:15px;font-weight:700;color:#fff}
-.live-indicator{display:flex;align-items:center;gap:6px;font-size:10px;color:var(--green);font-weight:600;letter-spacing:.08em;text-transform:uppercase}
-.live-dot-sm{width:6px;height:6px;border-radius:50%;background:var(--green);animation:livePulse 2s ease-in-out infinite}
-@keyframes livePulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(52,211,153,.5)}50%{opacity:.7;box-shadow:0 0 0 4px rgba(52,211,153,0)}}
-
+.live-indicator{display:flex;align-items:center;gap:6px;font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+.live-indicator.green{color:var(--green)}
+.live-indicator.blue{color:var(--blue)}
+.live-dot-green{width:6px;height:6px;border-radius:50%;background:var(--green);animation:livePulse 2s ease-in-out infinite}
+.live-dot-blue{width:6px;height:6px;border-radius:50%;background:var(--blue);animation:bluePulse 2s ease-in-out infinite}
 .field-label{font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--text3);display:block;margin-bottom:5px}
 .form-group{margin-bottom:1.1rem}
 .field-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:1.1rem}
-
-input[type=number],select{
-  width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);
-  color:var(--text);font-family:inherit;font-size:14px;font-weight:500;padding:9px 12px;
-  outline:none;transition:border-color .2s,box-shadow .2s,background .2s;-webkit-appearance:none
-}
+input[type=number],select{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-family:inherit;font-size:14px;font-weight:500;padding:9px 12px;outline:none;transition:border-color .2s,box-shadow .2s,background .2s;-webkit-appearance:none}
 input[type=number]:hover,select:hover{border-color:var(--border-bright);background:var(--bg2)}
 input[type=number]:focus,select:focus{border-color:rgba(52,211,153,.5);box-shadow:0 0 0 3px rgba(52,211,153,.08);background:var(--bg2)}
+.page-local input[type=number]:focus,.page-local select:focus{border-color:rgba(96,165,250,.5);box-shadow:0 0 0 3px rgba(96,165,250,.08)}
 select option{background:var(--bg2)}
 
-/* range slider */
+/* LOCAL SALARY SIDEBAR BIG SLIDER COMPONENTS */
+.l-salary-display {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem; /* Increased padding inside the card */
+  margin-bottom: 1.25rem;
+  text-align: center;
+}
+.l-salary-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px; /* More space below the label */
+}
+.l-salary-big {
+  font-size: 28px; /* Slightly larger text to stand out */
+  font-weight: 800;
+  color: var(--blue);
+  font-family: monospace;
+  margin-bottom: 14px; /* Added margin so the number never hits the slider handle */
+}
+.l-big-slider {
+  margin: 12px 0 16px 0 !important; /* Increased top and bottom margin to separate the track */
+  display: block;
+}
+.l-slider-minmax {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--text3);
+  font-weight: 600;
+  margin-top: 6px; /* Added spacing above the min/max values */
+}
+.l-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 1.25rem 0;
+}
+
+/* SLIDER */
 .slider-wrap{margin-bottom:1.1rem}
 .slider-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
-.slider-val{font-size:13px;font-weight:700;color:var(--green)}
+.slider-val{font-size:13px;font-weight:700}
+.slider-val.green{color:var(--green)}.slider-val.blue{color:var(--blue)}
 input[type=range]{width:100%;-webkit-appearance:none;height:4px;border-radius:20px;background:var(--bg3);outline:none;cursor:pointer}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--green);border:2px solid var(--bg);box-shadow:0 0 8px rgba(52,211,153,.5);cursor:pointer;transition:transform .15s,box-shadow .15s}
-input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.2);box-shadow:0 0 16px rgba(52,211,153,.7)}
+input[type=range].green-thumb::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--green);border:2px solid var(--bg);box-shadow:0 0 8px rgba(52,211,153,.5);cursor:pointer;transition:transform .15s,box-shadow .15s}
+input[type=range].green-thumb::-webkit-slider-thumb:hover{transform:scale(1.2);box-shadow:0 0 16px rgba(52,211,153,.7)}
+input[type=range].blue-thumb::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--blue);border:2px solid var(--bg);box-shadow:0 0 8px rgba(96,165,250,.5);cursor:pointer;transition:transform .15s,box-shadow .15s}
+input[type=range].blue-thumb::-webkit-slider-thumb:hover{transform:scale(1.2);box-shadow:0 0 16px rgba(96,165,250,.7)}
 input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--green);border:2px solid var(--bg);cursor:pointer}
 
+/* TOGGLES */
 .toggle-box{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:.9rem 1rem;margin-bottom:.8rem;transition:border-color .25s,background .25s}
-.toggle-box.on{border-color:var(--green-border);background:var(--green-bg)}
+.toggle-box.on-green{border-color:var(--green-border);background:var(--green-bg)}
+.toggle-box.on-blue{border-color:var(--blue-border);background:var(--blue-bg)}
 .toggle-row{display:flex;align-items:flex-start;gap:10px;cursor:pointer;user-select:none}
-/* custom switch */
 .switch{position:relative;width:34px;height:20px;flex-shrink:0;margin-top:2px}
 .switch input{opacity:0;width:0;height:0;position:absolute}
 .switch-track{position:absolute;inset:0;background:#1e3a5f;border-radius:20px;transition:background .25s;border:1px solid var(--border)}
-.switch input:checked+.switch-track{background:var(--green2)}
+.switch.green input:checked+.switch-track{background:var(--green2)}
+.switch.blue input:checked+.switch-track{background:var(--blue)}
 .switch-thumb{position:absolute;top:3px;left:3px;width:14px;height:14px;background:#fff;border-radius:50%;transition:transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .25s;box-shadow:0 1px 3px rgba(0,0,0,.3)}
-.switch input:checked~.switch-thumb{transform:translateX(14px);box-shadow:0 0 8px rgba(52,211,153,.5)}
+.switch input:checked~.switch-thumb{transform:translateX(14px)}
+.switch.green input:checked~.switch-thumb{box-shadow:0 0 8px rgba(52,211,153,.5)}
+.switch.blue input:checked~.switch-thumb{box-shadow:0 0 8px rgba(96,165,250,.5)}
 .toggle-name{font-size:13px;font-weight:600;color:var(--text)}
 .toggle-hint{font-size:11px;color:var(--text3);margin-top:2px;line-height:1.4}
 .epf-sub{margin-top:10px;display:grid;grid-template-columns:1fr 80px;gap:8px;overflow:hidden;transition:max-height .3s ease,opacity .3s ease;max-height:60px}
 .epf-sub.hidden{max-height:0;opacity:0;pointer-events:none}
 
-/* --- METRIC CARDS --- */
+/* info box */
+.info-box{background:var(--blue-bg);border:1px solid var(--blue-border);border-radius:var(--radius);padding:.75rem 1rem;margin-bottom:1rem;font-size:12px;color:var(--text2);line-height:1.55}
+.info-box strong{color:var(--blue);font-weight:600}
+
+/* METRICS */
 .metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:1.25rem}
-.m-card{
-  background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);
-  padding:1.1rem;position:relative;overflow:hidden;transition:border-color .3s,box-shadow .3s,transform .3s
-}
+.m-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.1rem;position:relative;overflow:hidden;transition:border-color .3s,box-shadow .3s,transform .3s}
 .m-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.06),transparent)}
 .m-card:hover{transform:translateY(-2px);border-color:var(--border-bright);box-shadow:0 8px 32px rgba(0,0,0,.25)}
 .m-label{font-size:10px;font-weight:700;color:var(--text3);letter-spacing:.09em;text-transform:uppercase;margin-bottom:.5rem}
 .m-val{font-size:22px;font-weight:700;color:#fff;letter-spacing:-.02em;transition:color .3s}
 .m-sub{font-size:12px;color:var(--text3);margin-top:5px}
-
-/* animated counter glow on update */
-.m-val.flash{animation:valFlash .4s ease}
-@keyframes valFlash{0%{filter:brightness(1)}40%{filter:brightness(1.6) drop-shadow(0 0 6px currentColor)}100%{filter:brightness(1)}}
-
-.m-card.net{border-color:var(--green-border);background:linear-gradient(135deg,rgba(52,211,153,.1) 0%,var(--card) 60%)}
-.m-card.net .m-label{color:var(--green)}
-.m-card.net .m-val{color:var(--green)}
-.m-card.net .m-sub{color:rgba(52,211,153,.5)}
-.m-card.net:hover{box-shadow:0 8px 32px rgba(52,211,153,.15)}
-
+.m-card.net-green{border-color:var(--green-border);background:linear-gradient(135deg,rgba(52,211,153,.1) 0%,var(--card) 60%)}
+.m-card.net-green .m-label{color:var(--green)}.m-card.net-green .m-val{color:var(--green)}.m-card.net-green .m-sub{color:rgba(52,211,153,.5)}
+.m-card.net-green:hover{box-shadow:0 8px 32px rgba(52,211,153,.15)}
+.m-card.net-blue{border-color:var(--blue-border);background:linear-gradient(135deg,rgba(96,165,250,.1) 0%,var(--card) 60%)}
+.m-card.net-blue .m-label{color:var(--blue)}.m-card.net-blue .m-val{color:var(--blue)}.m-card.net-blue .m-sub{color:rgba(96,165,250,.5)}
+.m-card.net-blue:hover{box-shadow:0 8px 32px rgba(96,165,250,.15)}
 .deduct-rows{font-size:12px;margin-top:.4rem}
 .dr{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid var(--border)}
 .dr:last-child{border-bottom:none}
-.dr-lbl{color:var(--text2)}
-.dr-val{font-weight:700;color:var(--red)}
+.dr-lbl{color:var(--text2)}.dr-val{font-weight:700;color:var(--red)}
 
-/* --- FLOW BAR --- */
+/* PAGE 2 LIVE PAYSLIP BREAKDOWN COMPONENT CARD */
+.l-payslip-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.4rem;margin-bottom:1.25rem;position:relative;overflow:hidden}
+.l-payslip-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.06),transparent)}
+.l-payslip-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:1.25rem}
+.l-payslip-bars{display:flex;flex-col:true;flex-direction:column;gap:12px}
+.l-payslip-row{display:grid;grid-template-columns:140px 1fr 110px;gap:12px;align-items:center}
+.l-bar-label{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text2);font-weight:500}
+.l-bar-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.l-bar-track{height:10px;background:rgba(0,0,0,0.4);border:1px solid var(--border);border-radius:20px;overflow:hidden}
+.l-bar-fill{height:100%;width:0%;transition:width .6s cubic-bezier(.34,1.2,.64,1)}
+.l-bar-val{font-size:13px;font-weight:700;text-align:right;font-family:monospace}
+
+/* PAGE 2 EMPLOYER REAL COST COMPONENT CARD */
+.l-employer-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.4rem;margin-bottom:1.25rem;display:flex;align-items:center;gap:1.25rem;position:relative;overflow:hidden}
+.l-employer-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.06),transparent)}
+.l-employer-icon{font-size:28px;width:52px;height:52px;display:flex;align-items:center;justify-content:center;background:var(--blue-bg);border:1px solid var(--blue-border);border-radius:var(--radius-lg);flex-shrink:0}
+.l-employer-body{flex:1}
+.l-employer-grid{display:grid;grid-template-columns:1fr 1.2fr 1fr;gap:12px;margin-top:0.25rem}
+.l-ecard{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:0.65rem 0.85rem}
+.l-ecard-mid{border-color:var(--blue-border);background:linear-gradient(135deg,rgba(96,165,250,0.06) 0%,var(--bg3) 100%)}
+.l-ecard-val{font-size:15px;font-weight:700;color:#fff;font-family:monospace}
+.l-ecard-val.highlight{color:var(--blue);font-size:16px}
+.l-ecard-lbl{font-size:10px;color:var(--text3);font-weight:600;margin-top:2px}
+
+/* BENEFIT MINI LAYOUT CARDS */
+.l-benefit-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:1.25rem}
+.l-benefit{display:flex;align-items:center;gap:10px;background:rgba(0,0,0,0.2);border:1px solid var(--border);border-radius:var(--radius);padding:0.75rem}
+.l-benefit-icon{font-size:18px;flex-shrink:0}
+
+/* FLOW BAR */
 .prog-section{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.4rem;margin-bottom:1.25rem;position:relative;overflow:hidden}
 .prog-section::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.06),transparent)}
 .prog-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:1rem}
 .prog-title{font-size:13px;font-weight:700;color:#fff}
-.prog-pct{font-size:13px;color:var(--green);font-weight:600}
-.track{height:14px;border-radius:20px;background:rgba(0,0,0,.4);border:1px solid var(--border);overflow:hidden;display:flex;position:relative}
-.seg{height:100%;transition:width .6s cubic-bezier(.34,1.2,.64,1);flex-shrink:0;position:relative}
-.seg.net{background:linear-gradient(90deg,#10b981,#34d399)}
+.prog-pct{font-size:13px;font-weight:600}
+.prog-pct.green{color:var(--green)}.prog-pct.blue{color:var(--blue)}
+.track{height:14px;border-radius:20px;background:rgba(0,0,0,.4);border:1px solid var(--border);overflow:hidden;display:flex}
+.seg{height:100%;transition:width .6s cubic-bezier(.34,1.2,.64,1);flex-shrink:0}
+.seg.net-g{background:linear-gradient(90deg,#10b981,#34d399)}
+.seg.net-b{background:linear-gradient(90deg,#3b82f6,#60a5fa)}
 .seg.tax{background:linear-gradient(90deg,#ef4444,#f87171)}
 .seg.epf{background:linear-gradient(90deg,#3b82f6,#60a5fa)}
+.seg.epf-local{background:linear-gradient(90deg,#7c3aed,#a78bfa)}
 .seg.ins{background:linear-gradient(90deg,#d97706,#fbbf24)}
 .legend{display:flex;gap:16px;margin-top:.75rem;flex-wrap:wrap}
 .leg-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text2);font-weight:500}
 .leg-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 
-/* --- BOTTOM TWO-COL --- */
+/* PANELS */
 .two-col{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:1.25rem}
 .panel{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.4rem;position:relative;overflow:hidden}
 .panel::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.06),transparent)}
 .panel-title{font-size:14px;font-weight:700;color:#fff;margin-bottom:.2rem}
 .panel-sub{font-size:12px;color:var(--text3);margin-bottom:.9rem}
 
-/* --- TAX BANDS --- */
-.band-row{
-  display:grid;grid-template-columns:1fr 46px 100px;gap:8px;align-items:center;
-  padding:9px 11px;border-radius:var(--radius);font-size:12px;border:1px solid var(--border);
-  margin-bottom:6px;background:var(--bg3);transition:all .3s cubic-bezier(.22,.68,0,1.2)
-}
-.band-row.active{border-color:var(--green-border);background:var(--green-bg);transform:translateX(3px)}
+/* TAX BANDS */
+.band-row{display:grid;grid-template-columns:1fr 46px 100px;gap:8px;align-items:center;padding:9px 11px;border-radius:var(--radius);font-size:12px;border:1px solid var(--border);margin-bottom:6px;background:var(--bg3);transition:all .3s cubic-bezier(.22,.68,0,1.2)}
+.band-row.active-g{border-color:var(--green-border);background:var(--green-bg);transform:translateX(3px)}
+.band-row.active-b{border-color:var(--blue-border);background:var(--blue-bg);transform:translateX(3px)}
 .band-name{font-weight:500;color:var(--text3)}
-.band-name.active{color:var(--green)}
+.band-name.active-g{color:var(--green)}.band-name.active-b{color:var(--blue)}
 .band-taxable{font-size:10px;color:var(--text3);margin-top:2px}
 .band-rate{text-align:right;font-weight:700;color:var(--text3)}
-.band-rate.active{color:var(--green)}
+.band-rate.active-g{color:var(--green)}.band-rate.active-b{color:var(--blue)}
 .band-tax{text-align:right;font-weight:700;color:var(--text2)}
 .band-tax.active{color:#fff}
 
-/* --- AFFILIATE PANEL --- */
+/* AFFILIATE */
 .aff-scan-line{position:absolute;top:0;left:-100%;width:40%;height:100%;background:linear-gradient(90deg,transparent,rgba(52,211,153,.04),transparent);animation:scanAff 4s ease-in-out infinite;pointer-events:none}
-@keyframes scanAff{0%{left:-40%}100%{left:140%}}
 .aff-header{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;margin-bottom:.75rem}
 .aff-badge{background:rgba(96,165,250,.1);color:var(--blue);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:20px;border:1px solid rgba(96,165,250,.22);white-space:nowrap}
 .aff-desc{font-size:12px;color:var(--text2);line-height:1.65;margin-bottom:1rem}
@@ -204,74 +288,48 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
 .fx-table td:not(:first-child){text-align:right;font-weight:700}
 .fx-table .loss{color:var(--red)}
 .fx-table .savings-row td{background:var(--green-bg);color:var(--green)}
-.cta-btn{
-  display:block;width:100%;margin-top:1rem;padding:11px;border-radius:var(--radius);
-  background:linear-gradient(135deg,#10b981,#34d399);color:#0a1a0f;font-size:13px;font-weight:700;
-  text-align:center;text-decoration:none;border:none;transition:transform .2s,box-shadow .2s;
-  letter-spacing:.01em;position:relative;overflow:hidden
-}
+.cta-btn{display:block;width:100%;margin-top:1rem;padding:11px;border-radius:var(--radius);background:linear-gradient(135deg,#10b981,#34d399);color:#0a1a0f;font-size:13px;font-weight:700;text-align:center;text-decoration:none;border:none;transition:transform .2s,box-shadow .2s;letter-spacing:.01em;position:relative;overflow:hidden}
 .cta-btn::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.25) 50%,transparent 100%);transform:translateX(-100%);transition:transform .5s}
 .cta-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(52,211,153,.35)}
 .cta-btn:hover::after{transform:translateX(100%)}
-.cta-btn:active{transform:translateY(0)}
 
-/* --- SCENARIO COMPARE --- */
+/* SCENARIOS */
 .scenario-section{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.4rem;margin-bottom:1.25rem}
 .scenario-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:1rem}
 .sc-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:.9rem;cursor:pointer;transition:all .25s;position:relative;overflow:hidden}
-.sc-card:hover,.sc-card.active{border-color:var(--green-border);background:var(--green-bg)}
-.sc-card::after{content:'';position:absolute;inset:0;border-radius:inherit;background:radial-gradient(circle at 50% 0%,rgba(52,211,153,.12),transparent 70%);opacity:0;transition:opacity .3s}
+.sc-card::after{content:'';position:absolute;inset:0;border-radius:inherit;opacity:0;transition:opacity .3s}
+.sc-card.g:hover,.sc-card.g.active{border-color:var(--green-border);background:var(--green-bg)}
+.sc-card.g::after{background:radial-gradient(circle at 50% 0%,rgba(52,211,153,.12),transparent 70%)}
+.sc-card.b:hover,.sc-card.b.active{border-color:var(--blue-border);background:var(--blue-bg)}
+.sc-card.b::after{background:radial-gradient(circle at 50% 0%,rgba(96,165,250,.12),transparent 70%)}
 .sc-card:hover::after,.sc-card.active::after{opacity:1}
 .sc-label{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:4px}
 .sc-val{font-size:16px;font-weight:700;color:#fff}
 .sc-curr{font-size:11px;color:var(--text3);margin-top:2px}
-.sc-badge{position:absolute;top:8px;right:8px;font-size:9px;font-weight:700;color:var(--green);background:var(--green-bg);border:1px solid var(--green-border);border-radius:20px;padding:1px 7px;opacity:0;transition:opacity .25s}
+.sc-badge{position:absolute;top:8px;right:8px;font-size:9px;font-weight:700;border-radius:20px;padding:1px 7px;opacity:0;transition:opacity .25s}
+.sc-badge.green{color:var(--green);background:var(--green-bg);border:1px solid var(--green-border)}
+.sc-badge.blue{color:var(--blue);background:var(--blue-bg);border:1px solid var(--blue-border)}
 .sc-card.active .sc-badge{opacity:1}
 
-/* --- TOOLTIP --- */
+/* TOOLTIP */
 .tip{position:relative;display:inline-block;cursor:help}
-.tip::after{
-  content:attr(data-tip);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%) scale(.9);
-  background:#1e3a5f;color:var(--text);font-size:11px;font-weight:500;padding:5px 10px;border-radius:6px;
-  border:1px solid var(--border-bright);white-space:nowrap;pointer-events:none;opacity:0;
-  transition:opacity .2s,transform .2s;z-index:100
-}
+.tip::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%) scale(.9);background:#1e3a5f;color:var(--text);font-size:11px;font-weight:500;padding:5px 10px;border-radius:6px;border:1px solid var(--border-bright);white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .2s,transform .2s;z-index:100}
 .tip:hover::after{opacity:1;transform:translateX(-50%) scale(1)}
 
-/* --- MISC --- */
-@media(max-width:960px){
-  .layout{grid-template-columns:1fr}
-  .metrics{grid-template-columns:repeat(2,1fr)}
-  .two-col{grid-template-columns:1fr}
-  .sidebar{position:static}
-  .header-stats{grid-template-columns:repeat(3,1fr)}
-}
-@media(max-width:560px){
-  .metrics{grid-template-columns:1fr}
-  .header-stats{grid-template-columns:repeat(2,1fr)}
-  .scenario-grid{grid-template-columns:1fr}
-}
-
-/* --- EDUCATIONAL SECTION --- */
-.edu-section{
-  margin-top:2rem;padding:2rem;
-  background:linear-gradient(135deg,rgba(52,211,153,.06) 0%,var(--card) 40%,rgba(96,165,250,.05) 100%);
-  border:1px solid var(--border);border-radius:var(--radius-xl);
-  position:relative;overflow:hidden
-}
-.edu-section::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:2px;
-  background:linear-gradient(90deg,var(--green),var(--blue),var(--purple));
-  opacity:.7
-}
-.edu-section::after{
-  content:'';position:absolute;inset:0;pointer-events:none;
-  background:
-    radial-gradient(ellipse 50% 60% at 0% 0%,rgba(52,211,153,.07),transparent 60%),
-    radial-gradient(ellipse 40% 50% at 100% 100%,rgba(96,165,250,.06),transparent 60%)
-}
+/* EDU SECTION */
+.edu-section{margin-top:2rem;padding:2rem;border:1px solid var(--border);border-radius:var(--radius-xl);position:relative;overflow:hidden}
+.edu-section.green-edu{background:linear-gradient(135deg,rgba(52,211,153,.06) 0%,var(--card) 40%,rgba(96,165,250,.05) 100%)}
+.edu-section.blue-edu{background:linear-gradient(135deg,rgba(96,165,250,.06) 0%,var(--card) 40%,rgba(167,139,250,.05) 100%)}
+.edu-section::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;opacity:.7}
+.edu-section.green-edu::before{background:linear-gradient(90deg,var(--green),var(--blue),var(--purple))}
+.edu-section.blue-edu::before{background:linear-gradient(90deg,var(--blue),var(--purple),var(--green))}
+.edu-section::after{content:'';position:absolute;inset:0;pointer-events:none}
+.edu-section.green-edu::after{background:radial-gradient(ellipse 50% 60% at 0% 0%,rgba(52,211,153,.07),transparent 60%),radial-gradient(ellipse 40% 50% at 100% 100%,rgba(96,165,250,.06),transparent 60%)}
+.edu-section.blue-edu::after{background:radial-gradient(ellipse 50% 60% at 0% 0%,rgba(96,165,250,.07),transparent 60%),radial-gradient(ellipse 40% 50% at 100% 100%,rgba(167,139,250,.06),transparent 60%)}
 .edu-header{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;position:relative;z-index:1}
-.edu-icon{font-size:28px;width:52px;height:52px;display:flex;align-items:center;justify-content:center;background:var(--green-bg);border:1px solid var(--green-border);border-radius:var(--radius-lg);flex-shrink:0}
+.edu-icon{font-size:28px;width:52px;height:52px;display:flex;align-items:center;justify-content:center;border-radius:var(--radius-lg);flex-shrink:0}
+.edu-icon.green{background:var(--green-bg);border:1px solid var(--green-border)}
+.edu-icon.blue{background:var(--blue-bg);border:1px solid var(--blue-border)}
 .edu-title{font-size:17px;font-weight:700;color:#fff;margin-bottom:3px}
 .edu-subtitle{font-size:12px;color:var(--text3)}
 .edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.5rem;position:relative;z-index:1}
@@ -281,313 +339,613 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
 .edu-card-title{font-size:13px;font-weight:700;color:#fff;margin-bottom:.65rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)}
 .edu-card p{font-size:13px;color:var(--text2);line-height:1.75}
 .edu-card strong{color:var(--text);font-weight:600}
-.edu-card em{color:var(--green);font-style:normal;font-weight:500}
+.edu-card em{font-style:normal;font-weight:500}
+.edu-card em.green{color:var(--green)}.edu-card em.blue{color:var(--blue)}
 .edu-tags{display:flex;flex-wrap:wrap;gap:8px;position:relative;z-index:1;padding-top:1.25rem;border-top:1px solid var(--border)}
 .edu-tag{font-size:11px;font-weight:500;color:var(--text3);background:rgba(0,0,0,.3);border:1px solid var(--border);border-radius:20px;padding:3px 11px;transition:color .2s,border-color .2s,background .2s;cursor:default}
-.edu-tag:hover{color:var(--green);border-color:var(--green-border);background:var(--green-bg)}
-@media(max-width:700px){.edu-grid{grid-template-columns:1fr}}
+.edu-tag.green:hover{color:var(--green);border-color:var(--green-border);background:var(--green-bg)}
+.edu-tag.blue:hover{color:var(--blue);border-color:var(--blue-border);background:var(--blue-bg)}
 
-/* number tick animation */
-@keyframes tickUp{from{transform:translateY(6px);opacity:0}to{transform:translateY(0);opacity:1}}
-.tick{animation:tickUp .25s ease}
+/* RESPONSIVE */
+@media(max-width:960px){
+  .layout{grid-template-columns:1fr}
+  .metrics{grid-template-columns:repeat(2,1fr)}
+  .two-col{grid-template-columns:1fr}
+  .sidebar{position:static}
+  .header-stats{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:700px){.edu-grid{grid-template-columns:1fr}}
+@media(max-width:560px){
+  .metrics{grid-template-columns:1fr}
+  .header-stats{grid-template-columns:repeat(2,1fr)}
+  .scenario-grid{grid-template-columns:1fr}
+  .page-tabs{flex-direction:column}
+}
 </style>
 </head>
 <body>
 <div class="root">
 
-  <!-- HEADER -->
-  <div class="header-row fade-up">
-    <div class="header-top">
-      <div>
-        <div class="badge" style="margin-bottom:.55rem">
-          <span class="pulse-dot"></span>
-          SEA Income Intelligence
+  <div class="page-tabs fade-up">
+    <button class="tab-btn active-foreign" id="tab-foreign" onclick="switchTab('foreign')">
+      <span class="tab-icon">🌏</span>
+      <span>
+        <div>Foreign Income → Malaysia</div>
+        <div class="tab-desc">USD / SGD / GBP / AUD / EUR contracts</div>
+      </span>
+    </button>
+    <button class="tab-btn" id="tab-local" onclick="switchTab('local')">
+      <span class="tab-icon">🇲🇾</span>
+      <span>
+        <div>Malaysian Local Salary</div>
+        <div class="tab-desc">MYR payroll · employer EPF · PCB/MTD</div>
+      </span>
+    </button>
+  </div>
+
+  <div class="page active" id="page-foreign">
+
+    <div class="header-row fade-up">
+      <div class="header-top">
+        <div>
+          <div class="badge green" style="margin-bottom:.55rem">
+            <span class="pulse-dot green"></span>
+            SEA Income Intelligence
+          </div>
+          <h1>Remote Worker &amp; Freelancer <span class="h1-accent-green">Income Optimizer</span></h1>
+          <p class="subtitle">Convert foreign revenue into Malaysian net pay — 2026 FX rates, EPF, SOCSO/EIS &amp; LHDN 2025/2026 tax bands.</p>
         </div>
-        <div class="header-title-block">
-          <h1>Remote Worker &amp; Freelancer <span class="h1-accent">Income Optimizer</span></h1>
+      </div>
+      <div class="header-stats" id="f-statbar">
+        <div class="hstat" id="f-hs-gross">
+          <div class="hstat-label">Annual Gross</div>
+          <div class="hstat-val green" id="f-headline-gross">RM 0</div>
+          <div class="hstat-sub">before deductions</div>
         </div>
-        <p class="subtitle" style="margin-top:.3rem">Convert foreign revenue into Malaysian net pay — 2026 FX rates, EPF, SOCSO/EIS &amp; LHDN 2025/2026 tax bands.</p>
+        <div class="hstat" id="f-hs-charge">
+          <div class="hstat-label">Chargeable Income</div>
+          <div class="hstat-val" id="f-headline-chargeable">RM 0</div>
+          <div class="hstat-sub">after relief &amp; EPF</div>
+        </div>
+        <div class="hstat" id="f-hs-net">
+          <div class="hstat-label">Net Take-Home</div>
+          <div class="hstat-val green" id="f-hs-net-val">RM 0</div>
+          <div class="hstat-sub" id="f-hs-net-sub">monthly</div>
+        </div>
+        <div class="hstat" id="f-hs-tax">
+          <div class="hstat-label">Annual Tax</div>
+          <div class="hstat-val red" id="f-hs-tax-val">RM 0</div>
+          <div class="hstat-sub" id="f-hs-eff-sub">0.00% effective rate</div>
+        </div>
+        <div class="hstat" id="f-hs-ret">
+          <div class="hstat-label">Retention Rate</div>
+          <div class="hstat-val blue" id="f-hs-ret-val">0%</div>
+          <div class="hstat-sub">of gross kept</div>
+        </div>
       </div>
     </div>
-    <!-- full-width stat bar -->
-    <div class="header-stats">
-      <div class="hstat" id="hs-gross">
+
+    <div class="layout">
+      <aside class="fade-up d1">
+        <div class="sidebar">
+          <div class="sidebar-head">
+            <span class="sidebar-title">Compensation inputs</span>
+            <span class="live-indicator green"><span class="live-dot-green"></span>Live</span>
+          </div>
+          <div class="form-group">
+            <label class="field-label" for="f-salary">Monthly contract salary</label>
+            <input type="number" id="f-salary" min="0" step="100" value="5000">
+          </div>
+          <div class="slider-wrap">
+            <div class="slider-row">
+              <span class="field-label" style="margin:0">Adjust salary</span>
+              <span class="slider-val green" id="f-slider-display">5,000</span>
+            </div>
+            <input type="range" id="f-slider" class="green-thumb" min="500" max="50000" step="500" value="5000">
+          </div>
+          <div class="field-row">
+            <div>
+              <label class="field-label" for="f-currency">Currency</label>
+              <select id="f-currency">
+                <option value="USD">🇺🇸 USD</option>
+                <option value="SGD">🇸🇬 SGD</option>
+                <option value="GBP">🇬🇧 GBP</option>
+                <option value="AUD">🇦🇺 AUD</option>
+                <option value="EUR">🇪🇺 EUR</option>
+              </select>
+            </div>
+            <div>
+              <label class="field-label" for="f-fx">FX to MYR</label>
+              <input type="number" id="f-fx" min="0" step="0.01" value="4.72">
+            </div>
+          </div>
+          <div class="toggle-box on-green" id="f-epf-box">
+            <label class="toggle-row">
+              <span class="switch green">
+                <input type="checkbox" id="f-epf-check" checked>
+                <span class="switch-track"></span>
+                <span class="switch-thumb"></span>
+              </span>
+              <span>
+                <div class="toggle-name">Employee EPF deduction</div>
+                <div class="toggle-hint">Included before chargeable income.</div>
+              </span>
+            </label>
+            <div class="epf-sub" id="f-epf-controls">
+              <select id="f-epf-mode">
+                <option value="11">11% standard</option>
+                <option value="custom">Custom rate</option>
+              </select>
+              <input type="number" id="f-custom-epf" min="0" max="100" step="0.1" value="11" disabled>
+            </div>
+          </div>
+          <div class="toggle-box on-green" id="f-socso-box">
+            <label class="toggle-row">
+              <span class="switch green">
+                <input type="checkbox" id="f-socso-check" checked>
+                <span class="switch-track"></span>
+                <span class="switch-thumb"></span>
+              </span>
+              <span>
+                <div class="toggle-name">SOCSO / EIS insurance</div>
+                <div class="toggle-hint tip" data-tip="SOCSO ≤ RM19.85 · EIS ≤ RM9.90 per month">Capped monthly contributions.</div>
+              </span>
+            </label>
+          </div>
+        </div>
+      </aside>
+
+      <section>
+        <div class="metrics fade-up d2">
+          <div class="m-card">
+            <div class="m-label">Gross monthly</div>
+            <div class="m-val" id="f-gross-monthly">RM 0</div>
+            <div class="m-sub" id="f-gross-sub">0 USD at 4.72</div>
+          </div>
+          <div class="m-card">
+            <div class="m-label">Statutory deductions</div>
+            <div class="deduct-rows">
+              <div class="dr"><span class="dr-lbl">PCB tax</span><span class="dr-val" id="f-tax-mo">RM 0</span></div>
+              <div class="dr"><span class="dr-lbl">EPF</span><span class="dr-val" id="f-epf-mo">RM 0</span></div>
+              <div class="dr"><span class="dr-lbl">SOCSO / EIS</span><span class="dr-val" id="f-socso-mo">RM 0</span></div>
+            </div>
+          </div>
+          <div class="m-card net-green">
+            <div class="m-label">Net take-home</div>
+            <div class="m-val" id="f-net-monthly">RM 0</div>
+            <div class="m-sub" id="f-net-annual">RM 0 annually</div>
+          </div>
+          <div class="m-card">
+            <div class="m-label">Effective tax rate</div>
+            <div class="m-val" id="f-eff-rate">0.00%</div>
+            <div class="m-sub" id="f-annual-tax">RM 0 per year</div>
+          </div>
+        </div>
+
+        <div class="scenario-section fade-up d3">
+          <div style="display:flex;justify-content:space-between;align-items:baseline">
+            <div>
+              <div class="panel-title">Salary scenarios</div>
+              <div class="panel-sub" style="margin-bottom:0">Click to load a preset — or type your own.</div>
+            </div>
+          </div>
+          <div class="scenario-grid" id="f-scenario-grid"></div>
+        </div>
+
+        <div class="prog-section fade-up d3">
+          <div class="prog-header">
+            <span class="prog-title">Monthly cash-flow map</span>
+            <span class="prog-pct green" id="f-retention-pct">Net is 0% of gross</span>
+          </div>
+          <div class="track">
+            <div class="seg net-g" id="f-seg-net" style="width:0%"></div>
+            <div class="seg tax" id="f-seg-tax" style="width:0%"></div>
+            <div class="seg epf" id="f-seg-epf" style="width:0%"></div>
+            <div class="seg ins" id="f-seg-ins" style="width:0%"></div>
+          </div>
+          <div class="legend">
+            <div class="leg-item"><div class="leg-dot" style="background:#34d399"></div>Net take-home</div>
+            <div class="leg-item"><div class="leg-dot" style="background:#f87171"></div>Income tax</div>
+            <div class="leg-item"><div class="leg-dot" style="background:#60a5fa"></div>EPF</div>
+            <div class="leg-item"><div class="leg-dot" style="background:#fbbf24"></div>SOCSO / EIS</div>
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div class="panel fade-up d4">
+            <div class="panel-title">LHDN 2025/2026 progressive tax brackets</div>
+            <div class="panel-sub" id="f-relief-line">Standard relief: RM 9,000</div>
+            <div id="f-tax-bands"></div>
+          </div>
+          <div class="panel fade-up d5">
+            <div class="aff-scan-line"></div>
+            <div class="aff-header">
+              <div>
+                <div class="panel-title">Optimize inbound invoices</div>
+                <div class="panel-sub" style="margin-bottom:0">FX leakage scan</div>
+              </div>
+              <div class="aff-badge">Affiliate</div>
+            </div>
+            <p class="aff-desc">Traditional banks quietly extract 3–4% margins on foreign inward transfers. Compare the leakage against a modern multi-currency route before your next invoice lands.</p>
+            <table class="fx-table">
+              <thead><tr><th>Route</th><th>Monthly</th><th>Annual</th></tr></thead>
+              <tbody>
+                <tr><td>Traditional bank 3.5%</td><td class="loss" id="f-bank-mo">RM 0</td><td class="loss" id="f-bank-an">RM 0</td></tr>
+                <tr><td>Modern route 0.6%</td><td id="f-mod-mo">RM 0</td><td id="f-mod-an">RM 0</td></tr>
+                <tr class="savings-row"><td>Potential savings</td><td id="f-sav-mo">RM 0</td><td id="f-sav-an">RM 0</td></tr>
+              </tbody>
+            </table>
+            <a class="cta-btn" href="https://wise.com/business/?utm_source=sea_income_optimizer&utm_medium=affiliate&utm_campaign=inbound_invoices" target="_blank" rel="noopener noreferrer">Compare multi-currency routes →</a>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="edu-section green-edu fade-up d6">
+      <div class="edu-header">
+        <div class="edu-icon green">📘</div>
+        <div>
+          <h2 class="edu-title">Guide to Foreign Contract Income &amp; Tax Compliance</h2>
+          <p class="edu-subtitle">For Malaysian remote workers &amp; freelancers earning in foreign currencies</p>
+        </div>
+      </div>
+      <div class="edu-grid">
+        <div class="edu-card">
+          <div class="edu-card-icon">⚖️</div>
+          <h3 class="edu-card-title">Is Foreign Income Taxable in Malaysia?</h3>
+          <p>As a remote software engineer, data architect, or designer working from Malaysia for a foreign entity (US, Singapore, Europe), your income is classified as <strong>Paragraph 4(a) Gains or Profits from a Business</strong> or independent contract work. Because the work is physically executed within Malaysia, it is considered derived locally and is fully subject to <strong>LHDN progressive income tax rates</strong>.</p>
+          <p style="margin-top:.75rem">Utilizing a monthly <em class="green">Potongan Cukai Berjadual (PCB)</em> simulator helps remote professionals manually set aside tax reserves to avoid heavy penalties or overwhelming lump-sum payments when filing the annual Form B or Form BE.</p>
+        </div>
+        <div class="edu-card">
+          <div class="edu-card-icon">🏦</div>
+          <h3 class="edu-card-title">Optimizing Voluntary EPF &amp; SOCSO Compliance</h3>
+          <p>Foreign companies are not legally obligated to remit statutory contributions to the <strong>Employees Provident Fund (EPF)</strong> or <strong>PERKESO (SOCSO/EIS)</strong>. However, Malaysian freelancers can opt into the <em class="green">i-Saraan</em> program or voluntary self-contributions.</p>
+          <p style="margin-top:.75rem">Voluntary EPF contributions up to 11% (or custom thresholds) not only safeguard retirement yields but also unlock specific tax relief assessment quotas up to <strong>RM 4,000 annually</strong>, lowering your true net chargeable income.</p>
+        </div>
+      </div>
+      <div class="edu-tags">
+        <span class="edu-tag green">#MalaysiaRemoteTaxCalculator</span>
+        <span class="edu-tag green">#LHDNProgressiveTax2026</span>
+        <span class="edu-tag green">#USDSGDToMYRConversion</span>
+        <span class="edu-tag green">#FreelancerPCBEstimation</span>
+        <span class="edu-tag green">#EPFiSaraan</span>
+        <span class="edu-tag green">#SOCSOVoluntary</span>
+      </div>
+    </div>
+
+  </div><div class="page page-local" id="page-local">
+
+    <div class="l-hero fade-up">
+      <div class="l-hero-glow"></div>
+      <div class="l-hero-content">
+        <div class="badge blue" style="margin-bottom:.7rem">
+          <span class="pulse-dot blue"></span>
+          Malaysian Payroll Intelligence
+        </div>
+        <h1 style="font-size:32px;margin-bottom:.5rem">Malaysian Local Salary <span class="h1-accent-blue">Take-Home Calculator</span></h1>
+        <p class="subtitle" style="max-width:600px;font-size:14px">Calculate your real net MYR salary — employee + employer EPF, SOCSO/EIS, PCB/MTD withholding tax &amp; LHDN 2025/2026 progressive rates. Know exactly what lands in your bank.</p>
+        <div class="l-hero-chips">
+          <span class="l-chip">🏦 EPF 11% + 13%</span>
+          <span class="l-chip">📋 PCB/MTD deduction</span>
+          <span class="l-chip">🛡️ SOCSO &amp; EIS</span>
+          <span class="l-chip">📈 Retirement projection</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="header-stats l-statbar-wrap fade-up d1" id="l-statbar">
+      <div class="hstat" id="l-hs-gross">
         <div class="hstat-label">Annual Gross</div>
-        <div class="hstat-val green" id="headline-gross">RM 0</div>
+        <div class="hstat-val blue" id="l-headline-gross">RM 0</div>
         <div class="hstat-sub">before deductions</div>
       </div>
-      <div class="hstat" id="hs-charge">
+      <div class="hstat" id="l-hs-charge">
         <div class="hstat-label">Chargeable Income</div>
-        <div class="hstat-val" id="headline-chargeable">RM 0</div>
+        <div class="hstat-val" id="l-headline-chargeable">RM 0</div>
         <div class="hstat-sub">after relief &amp; EPF</div>
       </div>
-      <div class="hstat" id="hs-net">
+      <div class="hstat" id="l-hs-net">
         <div class="hstat-label">Net Take-Home</div>
-        <div class="hstat-val green" id="hs-net-val">RM 0</div>
-        <div class="hstat-sub" id="hs-net-sub">monthly</div>
+        <div class="hstat-val blue" id="l-hs-net-val">RM 0</div>
+        <div class="hstat-sub" id="l-hs-net-sub">monthly</div>
       </div>
-      <div class="hstat" id="hs-tax">
-        <div class="hstat-label">Annual Tax</div>
-        <div class="hstat-val red" id="hs-tax-val">RM 0</div>
-        <div class="hstat-sub" id="hs-eff-sub">0.00% effective rate</div>
+      <div class="hstat" id="l-hs-tax">
+        <div class="hstat-label">Annual PCB Tax</div>
+        <div class="hstat-val red" id="l-hs-tax-val">RM 0</div>
+        <div class="hstat-sub" id="l-hs-eff-sub">0.00% effective</div>
       </div>
-      <div class="hstat" id="hs-ret">
-        <div class="hstat-label">Retention Rate</div>
-        <div class="hstat-val blue" id="hs-ret-val">0%</div>
-        <div class="hstat-sub">of gross kept</div>
+      <div class="hstat" id="l-hs-employer">
+        <div class="hstat-label">Employer EPF Cost</div>
+        <div class="hstat-val" id="l-hs-employer-val">RM 0</div>
+        <div class="hstat-sub">13% extra on top</div>
       </div>
     </div>
-  </div>
 
-  <!-- MAIN LAYOUT -->
-  <div class="layout">
-
-    <!-- SIDEBAR -->
-    <aside class="fade-up d1">
-      <div class="sidebar">
-        <div class="sidebar-head">
-          <span class="sidebar-title">Compensation inputs</span>
-          <span class="live-indicator"><span class="live-dot-sm"></span>Live</span>
-        </div>
-
-        <div class="form-group">
-          <label class="field-label" for="salaryInput">Monthly contract salary</label>
-          <input type="number" id="salaryInput" min="0" step="100" value="5000">
-        </div>
-
-        <!-- salary range slider -->
-        <div class="slider-wrap">
-          <div class="slider-row">
-            <span class="field-label" style="margin:0">Adjust salary</span>
-            <span class="slider-val" id="sliderDisplay">5,000</span>
+    <div class="layout" style="margin-top:1.5rem">
+      <aside class="fade-up d1">
+        <div class="sidebar l-sidebar">
+          <div class="sidebar-head">
+            <span class="sidebar-title">Payroll inputs</span>
+            <span class="live-indicator blue"><span class="live-dot-blue"></span>Live</span>
           </div>
-          <input type="range" id="salarySlider" min="500" max="50000" step="500" value="5000">
-        </div>
 
-        <div class="field-row">
-          <div>
-            <label class="field-label" for="currencySelect">Currency</label>
-            <select id="currencySelect">
-              <option value="USD">🇺🇸 USD</option>
-              <option value="SGD">🇸🇬 SGD</option>
-              <option value="GBP">🇬🇧 GBP</option>
-              <option value="AUD">🇦🇺 AUD</option>
-              <option value="EUR">🇪🇺 EUR</option>
-            </select>
+          <div class="l-salary-display">
+            <div class="l-salary-label">Monthly gross salary</div>
+            <div class="l-salary-big">RM <span id="l-salary-big-display">5,000</span></div>
+            <input type="range" id="l-slider" class="blue-thumb l-big-slider" min="500" max="30000" step="500" value="5000">
+            <div class="l-slider-minmax"><span>RM 500</span><span>RM 30,000</span></div>
           </div>
-          <div>
-            <label class="field-label" for="fxInput">FX to MYR</label>
-            <input type="number" id="fxInput" min="0" step="0.01" value="4.72">
+
+          <div class="form-group" style="margin-top:.75rem">
+            <label class="field-label" for="l-salary">Or type exact amount</label>
+            <input type="number" id="l-salary" min="0" step="100" value="5000">
           </div>
-        </div>
 
-        <div class="toggle-box" id="epfBox">
-          <label class="toggle-row">
-            <span class="switch">
-              <input type="checkbox" id="epfCheck" checked>
-              <span class="switch-track"></span>
-              <span class="switch-thumb"></span>
-            </span>
-            <span>
-              <div class="toggle-name">Employee EPF deduction</div>
-              <div class="toggle-hint">Included before chargeable income.</div>
-            </span>
-          </label>
-          <div class="epf-sub" id="epfControls">
-            <select id="epfMode">
-              <option value="11">11% standard</option>
-              <option value="custom">Custom rate</option>
-            </select>
-            <input type="number" id="customEpf" min="0" max="100" step="0.1" value="11" disabled>
-          </div>
-        </div>
+          <div class="l-divider"></div>
 
-        <div class="toggle-box" id="socsoBox">
-          <label class="toggle-row">
-            <span class="switch">
-              <input type="checkbox" id="socsoCheck" checked>
-              <span class="switch-track"></span>
-              <span class="switch-thumb"></span>
-            </span>
-            <span>
-              <div class="toggle-name">SOCSO / EIS insurance</div>
-              <div class="toggle-hint tip" data-tip="SOCSO ≤ RM19.85 · EIS ≤ RM9.90 per month">Capped monthly contributions.</div>
-            </span>
-          </label>
-        </div>
-      </div>
-    </aside>
-
-    <!-- RIGHT CONTENT -->
-    <section>
-
-      <!-- METRICS -->
-      <div class="metrics fade-up d2">
-        <div class="m-card">
-          <div class="m-label">Gross monthly</div>
-          <div class="m-val" id="grossMonthly">RM 0</div>
-          <div class="m-sub" id="grossSub">0 USD at 4.72</div>
-        </div>
-        <div class="m-card">
-          <div class="m-label">Statutory deductions</div>
-          <div class="deduct-rows">
-            <div class="dr"><span class="dr-lbl">PCB tax</span><span class="dr-val" id="taxMo">RM 0</span></div>
-            <div class="dr"><span class="dr-lbl">EPF</span><span class="dr-val" id="epfMo">RM 0</span></div>
-            <div class="dr"><span class="dr-lbl">SOCSO / EIS</span><span class="dr-val" id="socsoMo">RM 0</span></div>
-          </div>
-        </div>
-        <div class="m-card net">
-          <div class="m-label">Net take-home</div>
-          <div class="m-val" id="netMonthly">RM 0</div>
-          <div class="m-sub" id="netAnnual">RM 0 annually</div>
-        </div>
-        <div class="m-card">
-          <div class="m-label">Effective tax rate</div>
-          <div class="m-val" id="effRate">0.00%</div>
-          <div class="m-sub" id="annualTax">RM 0 per year</div>
-        </div>
-      </div>
-
-      <!-- SCENARIO COMPARE -->
-      <div class="scenario-section fade-up d3">
-        <div style="display:flex;justify-content:space-between;align-items:baseline">
-          <div>
-            <div class="panel-title">Salary scenarios</div>
-            <div class="panel-sub" style="margin-bottom:0">Click to load a preset — or keep typing your own.</div>
-          </div>
-        </div>
-        <div class="scenario-grid" id="scenarioGrid"></div>
-      </div>
-
-      <!-- FLOW BAR -->
-      <div class="prog-section fade-up d3">
-        <div class="prog-header">
-          <span class="prog-title">Monthly cash-flow map</span>
-          <span class="prog-pct" id="retentionPct">Net is 0% of gross</span>
-        </div>
-        <div class="track">
-          <div class="seg net" id="segNet" style="width:0%"></div>
-          <div class="seg tax" id="segTax" style="width:0%"></div>
-          <div class="seg epf" id="segEpf" style="width:0%"></div>
-          <div class="seg ins" id="segIns" style="width:0%"></div>
-        </div>
-        <div class="legend">
-          <div class="leg-item"><div class="leg-dot" style="background:#34d399"></div>Net take-home</div>
-          <div class="leg-item"><div class="leg-dot" style="background:#f87171"></div>Income tax</div>
-          <div class="leg-item"><div class="leg-dot" style="background:#60a5fa"></div>EPF</div>
-          <div class="leg-item"><div class="leg-dot" style="background:#fbbf24"></div>SOCSO / EIS</div>
-        </div>
-      </div>
-
-      <!-- TAX BANDS + AFFILIATE -->
-      <div class="two-col">
-        <div class="panel fade-up d4">
-          <div class="panel-title">LHDN 2025/2026 progressive tax brackets</div>
-          <div class="panel-sub" id="reliefLine">Standard relief: RM 9,000</div>
-          <div id="taxBands"></div>
-        </div>
-
-        <div class="panel fade-up d5">
-          <div class="aff-scan-line"></div>
-          <div class="aff-header">
-            <div>
-              <div class="panel-title">Optimize inbound invoices</div>
-              <div class="panel-sub" style="margin-bottom:0">FX leakage scan</div>
+          <div class="toggle-box on-blue" id="l-epf-box">
+            <label class="toggle-row">
+              <span class="switch blue">
+                <input type="checkbox" id="l-epf-check" checked>
+                <span class="switch-track"></span>
+                <span class="switch-thumb"></span>
+              </span>
+              <span>
+                <div class="toggle-name">EPF contributions</div>
+                <div class="toggle-hint">Employee 11% + Employer 13%</div>
+              </span>
+            </label>
+            <div class="epf-sub" id="l-epf-controls">
+              <select id="l-epf-mode">
+                <option value="standard">11% employee standard</option>
+                <option value="custom">Custom employee %</option>
+              </select>
+              <input type="number" id="l-custom-epf" min="0" max="100" step="0.1" value="11" disabled>
             </div>
-            <div class="aff-badge">Affiliate</div>
           </div>
-          <p class="aff-desc">Traditional banks quietly extract 3–4% margins on foreign inward transfers. Compare the leakage against a modern multi-currency route before your next invoice lands.</p>
 
-          <table class="fx-table">
-            <thead>
-              <tr>
-                <th>Route</th>
-                <th>Monthly</th>
-                <th>Annual</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Traditional bank 3.5%</td>
-                <td class="loss" id="bankMo">RM 0</td>
-                <td class="loss" id="bankAn">RM 0</td>
-              </tr>
-              <tr>
-                <td>Modern route 0.6%</td>
-                <td id="modMo">RM 0</td>
-                <td id="modAn">RM 0</td>
-              </tr>
-              <tr class="savings-row">
-                <td>Potential savings</td>
-                <td id="savMo">RM 0</td>
-                <td id="savAn">RM 0</td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="toggle-box on-blue" id="l-socso-box">
+            <label class="toggle-row">
+              <span class="switch blue">
+                <input type="checkbox" id="l-socso-check" checked>
+                <span class="switch-track"></span>
+                <span class="switch-thumb"></span>
+              </span>
+              <span>
+                <div class="toggle-name">SOCSO / EIS</div>
+                <div class="toggle-hint tip" data-tip="SOCSO ≤ RM19.85 · EIS ≤ RM9.90 per month">Statutory employee contributions.</div>
+              </span>
+            </label>
+          </div>
 
-          <a class="cta-btn" href="https://wise.com/business/?utm_source=sea_income_optimizer&utm_medium=affiliate&utm_campaign=inbound_invoices" target="_blank" rel="noopener noreferrer">
-            Compare multi-currency routes →
-          </a>
+          <div class="l-divider"></div>
+
+          <div class="form-group">
+            <label class="field-label" for="l-extra-relief">Additional tax relief (RM/year)</label>
+            <input type="number" id="l-extra-relief" min="0" step="500" value="0" placeholder="lifestyle, medical, education…">
+            <div style="font-size:11px;color:var(--text3);margin-top:5px">Reduces your chargeable income directly</div>
+          </div>
+        </div>
+      </aside>
+
+      <section>
+        <div class="metrics fade-up d2">
+          <div class="m-card">
+            <div class="m-label">Gross monthly</div>
+            <div class="m-val" id="l-gross-monthly">RM 0</div>
+            <div class="m-sub" id="l-gross-sub">MYR salary</div>
+          </div>
+          <div class="m-card">
+            <div class="m-label">Statutory deductions</div>
+            <div class="deduct-rows">
+              <div class="dr"><span class="dr-lbl">PCB/MTD tax</span><span class="dr-val" id="l-tax-mo">RM 0</span></div>
+              <div class="dr"><span class="dr-lbl">Employee EPF</span><span class="dr-val" id="l-epf-mo">RM 0</span></div>
+              <div class="dr"><span class="dr-lbl">SOCSO / EIS</span><span class="dr-val" id="l-socso-mo">RM 0</span></div>
+            </div>
+          </div>
+          <div class="m-card net-blue">
+            <div class="m-label">Net take-home</div>
+            <div class="m-val" id="l-net-monthly">RM 0</div>
+            <div class="m-sub" id="l-net-annual">RM 0 annually</div>
+          </div>
+          <div class="m-card">
+            <div class="m-label">Effective tax rate</div>
+            <div class="m-val" id="l-eff-rate">0.00%</div>
+            <div class="m-sub" id="l-annual-tax">RM 0 per year</div>
+          </div>
+        </div>
+
+        <div class="l-payslip-card fade-up d2">
+          <div class="l-payslip-header">
+            <div>
+              <div style="font-size:13px;font-weight:700;color:#fff">Live Payslip Breakdown</div>
+              <div style="font-size:11px;color:var(--text3);margin-top:2px">Where every ringgit of your gross goes each month</div>
+            </div>
+            <span class="prog-pct blue" id="l-retention-pct">0% retained</span>
+          </div>
+          <div class="l-payslip-bars">
+            <div class="l-payslip-row">
+              <div class="l-bar-label"><span class="l-bar-dot" style="background:#60a5fa"></span>Net take-home</div>
+              <div class="l-bar-track"><div class="l-bar-fill" id="l-bar-net" style="width:0%;background:linear-gradient(90deg,#3b82f6,#60a5fa)"></div></div>
+              <div class="l-bar-val blue" id="l-bar-net-val">RM 0</div>
+            </div>
+            <div class="l-payslip-row">
+              <div class="l-bar-label"><span class="l-bar-dot" style="background:#f87171"></span>PCB/MTD tax</div>
+              <div class="l-bar-track"><div class="l-bar-fill" id="l-bar-tax" style="width:0%;background:linear-gradient(90deg,#ef4444,#f87171)"></div></div>
+              <div class="l-bar-val red" id="l-bar-tax-val">RM 0</div>
+            </div>
+            <div class="l-payslip-row">
+              <div class="l-bar-label"><span class="l-bar-dot" style="background:#a78bfa"></span>Employee EPF</div>
+              <div class="l-bar-track"><div class="l-bar-fill" id="l-bar-epf" style="width:0%;background:linear-gradient(90deg,#7c3aed,#a78bfa)"></div></div>
+              <div class="l-bar-val purple" id="l-bar-epf-val">RM 0</div>
+            </div>
+            <div class="l-payslip-row">
+              <div class="l-bar-label"><span class="l-bar-dot" style="background:#fbbf24"></span>SOCSO / EIS</div>
+              <div class="l-bar-track"><div class="l-bar-fill" id="l-bar-ins" style="width:0%;background:linear-gradient(90deg,#d97706,#fbbf24)"></div></div>
+              <div class="l-bar-val amber" id="l-bar-ins-val">RM 0</div>
+            </div>
+          </div>
+          <div style="display:none">
+            <div id="l-seg-net"></div><div id="l-seg-tax"></div>
+            <div id="l-seg-epf"></div><div id="l-seg-ins"></div>
+          </div>
+        </div>
+
+        <div class="l-employer-card fade-up d2">
+          <div class="l-employer-icon">🏢</div>
+          <div class="l-employer-body">
+            <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);margin-bottom:.6rem">What your employer actually pays for you</div>
+            <div class="l-employer-grid">
+              <div class="l-ecard">
+                <div class="l-ecard-val" id="l-employer-epf-mo">RM 0</div>
+                <div class="l-ecard-lbl">Employer EPF 13%</div>
+              </div>
+              <div class="l-ecard l-ecard-mid">
+                <div class="l-ecard-val highlight" id="l-total-cost-mo">RM 0</div>
+                <div class="l-ecard-lbl">Total cost to employer</div>
+              </div>
+              <div class="l-ecard">
+                <div class="l-ecard-val" id="l-total-epf-pot">RM 0</div>
+                <div class="l-ecard-lbl">Combined EPF/mo</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="scenario-section fade-up d3">
+          <div style="display:flex;justify-content:space-between;align-items:baseline">
+            <div>
+              <div class="panel-title">Malaysian salary benchmarks</div>
+              <div class="panel-sub" style="margin-bottom:0">Click any role to instantly load its salary.</div>
+            </div>
+          </div>
+          <div class="scenario-grid" id="l-scenario-grid"></div>
+        </div>
+
+        <div class="two-col">
+          <div class="panel fade-up d4">
+            <div class="panel-title">LHDN 2025/2026 progressive tax brackets</div>
+            <div class="panel-sub" id="l-relief-line">Standard relief: RM 9,000</div>
+            <div id="l-tax-bands"></div>
+          </div>
+
+          <div class="panel fade-up d5">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:.25rem">
+              <span style="font-size:18px">📈</span>
+              <div class="panel-title">EPF Nest Egg Projection</div>
+            </div>
+            <div class="panel-sub">Employee + employer EPF compounding at 5.7% avg dividend</div>
+            <div id="l-epf-proj"></div>
+
+            <div class="l-benefit-cards">
+              <div class="l-benefit">
+                <div class="l-benefit-icon">🛡️</div>
+                <div>
+                  <div style="font-size:12px;font-weight:600;color:#fff;margin-bottom:2px">SOCSO</div>
+                  <div style="font-size:11px;color:var(--text2)">Workplace injury &amp; invalidity protection</div>
+                </div>
+              </div>
+              <div class="l-benefit">
+                <div class="l-benefit-icon">🤝</div>
+                <div>
+                  <div style="font-size:12px;font-weight:600;color:#fff;margin-bottom:2px">EIS</div>
+                  <div style="font-size:11px;color:var(--text2)">Up to 6 months income if retrenched</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="edu-section blue-edu fade-up d6">
+      <div class="edu-header">
+        <div class="edu-icon blue">🏛️</div>
+        <div>
+          <h2 class="edu-title">Malaysian Payroll: PCB, EPF &amp; SOCSO Explained</h2>
+          <p class="edu-subtitle">Understanding your Malaysian payslip deductions and retirement savings</p>
         </div>
       </div>
-
-    </section>
-  </div>
-
-  <!-- EDUCATIONAL SECTION -->
-  <div class="edu-section fade-up d6">
-    <div class="edu-header">
-      <div class="edu-icon">📘</div>
-      <div>
-        <h2 class="edu-title">Guide to Foreign Contract Income &amp; Tax Compliance</h2>
-        <p class="edu-subtitle">For Malaysian remote workers &amp; freelancers earning in foreign currencies</p>
+      <div class="edu-grid">
+        <div class="edu-card">
+          <div class="edu-card-icon">📋</div>
+          <h3 class="edu-card-title">PCB / MTD — Monthly Tax Deduction</h3>
+          <p><em class="blue">Potongan Cukai Berjadual (PCB)</em>, also known as <em class="blue">Monthly Tax Deduction (MTD)</em>, is the mandatory withholding mechanism where your employer deducts estimated income tax each month and remits it to LHDN on your behalf.</p>
+          <p style="margin-top:.75rem">At year-end, you file <strong>Form BE</strong> (employment income only) or <strong>Form B</strong> (business income) to reconcile actual tax against PCB paid. Overpayment results in a refund; shortfall must be topped up. Additional relief claims reduce your final chargeable income.</p>
+        </div>
+        <div class="edu-card">
+          <div class="edu-card-icon">💰</div>
+          <h3 class="edu-card-title">EPF (KWSP) — Your Retirement Pot</h3>
+          <p>The <strong>Employees Provident Fund</strong> mandates a <em class="blue">13% employer contribution</em> and <em class="blue">11% employee contribution</em> on your monthly gross salary. Both amounts go into your EPF Account — your employer effectively adds 13% on top of your gross as a retirement benefit, making your true compensation much higher than your take-home suggests.</p>
+          <p style="margin-top:.75rem">EPF contributions reduce your chargeable income (employee portion), delivering an immediate tax saving while building your retirement corpus. Voluntary top-ups via <strong>i-Akaun</strong> unlock additional relief up to RM 4,000.</p>
+        </div>
+      </div>
+      <div class="edu-tags">
+        <span class="edu-tag blue">#MalaysianPayrollCalculator</span>
+        <span class="edu-tag blue">#PCBMTDCalculator2026</span>
+        <span class="edu-tag blue">#EPFKWSPContribution</span>
+        <span class="edu-tag blue">#LHDNFormBE</span>
+        <span class="edu-tag blue">#SOCSOPERKESOMalaysia</span>
+        <span class="edu-tag blue">#MalaysianSalaryTakeHome</span>
       </div>
     </div>
 
-    <div class="edu-grid">
-      <div class="edu-card">
-        <div class="edu-card-icon">⚖️</div>
-        <h3 class="edu-card-title">Is Foreign Income Taxable in Malaysia?</h3>
-        <p>As a remote software engineer, data architect, or designer working from Malaysia for a foreign entity (US, Singapore, Europe), your income is classified as <strong>Paragraph 4(a) Gains or Profits from a Business</strong> or independent contract work. Because the work is physically executed within Malaysia, it is considered derived locally and is fully subject to <strong>LHDN progressive income tax rates</strong>.</p>
-        <p style="margin-top:.75rem">Utilizing a monthly <em>Potongan Cukai Berjadual (PCB)</em> simulator helps remote professionals manually set aside tax reserves to avoid heavy penalties or overwhelming lump-sum payments when filing the annual Form B or Form BE.</p>
-      </div>
-
-      <div class="edu-card">
-        <div class="edu-card-icon">🏦</div>
-        <h3 class="edu-card-title">Optimizing Voluntary EPF &amp; SOCSO Compliance</h3>
-        <p>Foreign companies are not legally obligated to remit statutory contributions to the <strong>Employees Provident Fund (EPF)</strong> or <strong>PERKESO (SOCSO/EIS)</strong>. However, Malaysian freelancers can opt into the <em>i-Saraan</em> program or voluntary self-contributions.</p>
-        <p style="margin-top:.75rem">Voluntary EPF contributions up to 11% (or custom thresholds) not only safeguard retirement yields but also unlock specific tax relief assessment quotas up to <strong>RM 4,000 annually</strong>, lowering your true net chargeable income.</p>
-      </div>
-    </div>
-
-    <div class="edu-tags">
-      <span class="edu-tag">#MalaysiaRemoteTaxCalculator</span>
-      <span class="edu-tag">#LHDNProgressiveTax2026</span>
-      <span class="edu-tag">#USDSGDToMYRConversion</span>
-      <span class="edu-tag">#FreelancerPCBEstimation</span>
-      <span class="edu-tag">#EPFiSaraan</span>
-      <span class="edu-tag">#SOCSOVoluntary</span>
-    </div>
-  </div>
-
-</div>
-
-<script>
+  </div></div><script>
+// ─── SHARED CONFIGURATIONS ────────────────────────────
 const fxMap={USD:4.72,SGD:3.51,GBP:5.95,EUR:5.12,AUD:3.10};
 const brackets=[
-  {from:0,to:5000,rate:0},
-  {from:5000,to:20000,rate:0.01},
-  {from:20000,to:35000,rate:0.03},
-  {from:35000,to:50000,rate:0.06},
-  {from:50000,to:70000,rate:0.11},
-  {from:70000,to:100000,rate:0.19},
-  {from:100000,to:400000,rate:0.25},
-  {from:400000,to:600000,rate:0.26},
-  {from:600000,to:2000000,rate:0.28},
-  {from:2000000,to:Infinity,rate:0.30}
+  {from:0,to:5000,rate:0},{from:5000,to:20000,rate:0.01},
+  {from:20000,to:35000,rate:0.03},{from:35000,to:50000,rate:0.06},
+  {from:50000,to:70000,rate:0.11},{from:70000,to:100000,rate:0.19},
+  {from:100000,to:400000,rate:0.25},{from:400000,to:600000,rate:0.26},
+  {from:600000,to:2000000,rate:0.28},{from:2000000,to:Infinity,rate:0.30}
 ];
+const rm=(v,d=0)=>'RM '+Math.max(0,v||0).toLocaleString('en-MY',{minimumFractionDigits:d,maximumFractionDigits:d});
+const pct=(v,d=1)=>(v*100).toFixed(d)+'%';
+const num=el=>Math.max(0,Number(el.value)||0);
+const g=id=>document.getElementById(id);
 
-const scenarios=[
+function animateVal(el,t){el.classList.remove('tick');void el.offsetWidth;el.textContent=t;el.classList.add('tick')}
+function flashEl(el){el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash')}
+function setVal(id,v){const el=g(id);if(!el)return;if(el.textContent!==v){animateVal(el,v);flashEl(el)}}
+
+function calcTax(ci){
+  let total=0;
+  const rows=brackets.map(b=>{const taxable=Math.max(0,Math.min(ci,b.to)-b.from);const bandTax=taxable*b.rate;total+=bandTax;return{...b,taxable,bandTax}});
+  return{total,rows};
+}
+function bandLabel(b){
+  if(b.to===Infinity)return'Above RM 2,000,000';
+  if(b.from===0)return'First RM 5,000';
+  return'RM '+b.from.toLocaleString('en-MY')+' – RM '+b.to.toLocaleString('en-MY');
+}
+function renderBands(containerId,rows,colorClass){
+  g(containerId).innerHTML=rows.map((r,i)=>{
+    const a=r.taxable>0;
+    return`<div class="band-row${a?' '+colorClass:''}" style="animation-delay:${i*30}ms">
+      <div><div class="band-name${a?' '+colorClass:''}">${bandLabel(r)}</div><div class="band-taxable">Taxable: ${rm(r.taxable,2)}</div></div>
+      <div class="band-rate${a?' '+colorClass:''}">${(r.rate*100).toFixed(0)}%</div>
+      <div class="band-tax${a?' active':''}">${rm(r.bandTax,2)}</div>
+    </div>`;
+  }).join('');
+}
+
+// ─── TAB SWITCH INTERACTION ROUTER ─────────────────────
+function switchTab(tab){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>{b.classList.remove('active-foreign','active-local')});
+  g('page-'+tab).classList.add('active');
+  if(tab==='foreign') {
+    g('tab-foreign').classList.add('active-foreign');
+    fCalc();
+  } else {
+    g('tab-local').classList.add('active-local');
+    lCalc();
+  }
+}
+
+// ─── PAGE 1: FOREIGN INBOUND REVENUE CALCULATIONS ──────
+const fScenarios=[
   {label:'Junior freelancer',salary:2000,currency:'USD'},
   {label:'Mid-level remote',salary:4500,currency:'USD'},
   {label:'Senior remote',salary:8000,currency:'USD'},
@@ -596,195 +954,181 @@ const scenarios=[
   {label:'Top earner',salary:15000,currency:'USD'},
 ];
 
-const rm=(v,d=0)=>'RM '+Math.max(0,v||0).toLocaleString('en-MY',{minimumFractionDigits:d,maximumFractionDigits:d});
-const pct=(v,d=1)=>(v*100).toFixed(d)+'%';
-const num=el=>Math.max(0,Number(el.value)||0);
-const g=id=>document.getElementById(id);
-
-// animated counter
-function animateVal(el,newText){
-  el.classList.remove('tick');
-  void el.offsetWidth;
-  el.textContent=newText;
-  el.classList.add('tick');
-}
-
-function flashEl(el){
-  el.classList.remove('flash');
-  void el.offsetWidth;
-  el.classList.add('flash');
-}
-
-function calcTax(ci){
-  let total=0;
-  const rows=brackets.map(b=>{
-    const taxable=Math.max(0,Math.min(ci,b.to)-b.from);
-    const bandTax=taxable*b.rate;
-    total+=bandTax;
-    return{...b,taxable,bandTax};
-  });
-  return{total,rows};
-}
-
-function bandLabel(b){
-  if(b.to===Infinity)return'Above RM 2,000,000';
-  if(b.from===0)return'First RM 5,000';
-  return'RM '+b.from.toLocaleString('en-MY')+' – RM '+b.to.toLocaleString('en-MY');
-}
-
-function renderBands(rows){
-  g('taxBands').innerHTML=rows.map((r,i)=>{
-    const a=r.taxable>0;
-    return`<div class="band-row${a?' active':''}" style="animation-delay:${i*30}ms">
-      <div>
-        <div class="band-name${a?' active':''}">${bandLabel(r)}</div>
-        <div class="band-taxable">Taxable: ${rm(r.taxable,2)}</div>
-      </div>
-      <div class="band-rate${a?' active':''}">${(r.rate*100).toFixed(0)}%</div>
-      <div class="band-tax${a?' active':''}">${rm(r.bandTax,2)}</div>
-    </div>`;
-  }).join('');
-}
-
-function buildScenarios(){
-  const grid=g('scenarioGrid');
-  const cur=g('currencySelect').value;
-  const curSal=num(g('salaryInput'));
-  grid.innerHTML=scenarios.map((s,i)=>{
-    const isActive=s.salary===curSal&&s.currency===cur;
-    return`<div class="sc-card${isActive?' active':''}" onclick="loadScenario(${i})">
+function fBuildScenarios(){
+  const cur=g('f-currency').value,curSal=num(g('f-salary'));
+  g('f-scenario-grid').innerHTML=fScenarios.map((s,i)=>{
+    const active=s.salary===curSal&&s.currency===cur;
+    return`<div class="sc-card g${active?' active':''}" onclick="fLoadScenario(${i})">
       <div class="sc-label">${s.label}</div>
       <div class="sc-val">${s.salary.toLocaleString('en-MY')} ${s.currency}</div>
       <div class="sc-curr">≈ RM ${(s.salary*fxMap[s.currency]).toLocaleString('en-MY',{maximumFractionDigits:0})}/mo</div>
-      <div class="sc-badge">Active</div>
+      <div class="sc-badge green">Active</div>
     </div>`;
   }).join('');
 }
 
-window.loadScenario=function(i){
-  const s=scenarios[i];
-  g('salaryInput').value=s.salary;
-  g('salarySlider').value=Math.min(50000,s.salary);
-  g('sliderDisplay').textContent=s.salary.toLocaleString('en-MY');
-  g('currencySelect').value=s.currency;
-  g('fxInput').value=fxMap[s.currency].toFixed(2);
-  calc();
+window.fLoadScenario=function(i){
+  const s=fScenarios[i];
+  g('f-salary').value=s.salary;
+  g('f-slider').value=Math.min(50000,s.salary);
+  g('f-slider-display').textContent=s.salary.toLocaleString('en-MY');
+  g('f-currency').value=s.currency;
+  g('f-fx').value=fxMap[s.currency].toFixed(2);
+  fCalc();
 };
 
-function calc(){
-  const sal=num(g('salaryInput'));
-  const fx=num(g('fxInput'));
-  const cur=g('currencySelect').value;
-  const gross=sal*fx;
-  const annGross=gross*12;
-
-  const epfRate=g('epfMode').value==='custom'?num(g('customEpf'))/100:0.11;
-  const moEpf=g('epfCheck').checked?gross*epfRate:0;
-  const moSocso=g('socsoCheck').checked?Math.min(gross*0.005,19.85):0;
-  const moEis=g('socsoCheck').checked?Math.min(gross*0.002,9.90):0;
+function fCalc(){
+  const sal=num(g('f-salary')),fx=num(g('f-fx')),cur=g('f-currency').value;
+  const gross=sal*fx,annGross=gross*12;
+  const epfRate=g('f-epf-mode').value==='custom'?num(g('f-custom-epf'))/100:0.11;
+  const moEpf=g('f-epf-check').checked?gross*epfRate:0;
+  const moSocso=g('f-socso-check').checked?Math.min(gross*0.005,19.85):0;
+  const moEis=g('f-socso-check').checked?Math.min(gross*0.002,9.90):0;
   const moIns=moSocso+moEis;
-
-  const relief=9000;
   const annDed=(moEpf+moIns)*12;
-  const ci=Math.max(0,annGross-relief-annDed);
+  const ci=Math.max(0,annGross-9000-annDed);
   const{total:annTax,rows}=calcTax(ci);
-  const moTax=annTax/12;
-  const net=Math.max(0,gross-moTax-moEpf-moIns);
-  const effRate=annGross>0?annTax/annGross:0;
-  const retRate=gross>0?net/gross:0;
-  const taxSh=gross>0?moTax/gross:0;
-  const epfSh=gross>0?moEpf/gross:0;
-  const insSh=gross>0?moIns/gross:0;
+  const moTax=annTax/12,net=Math.max(0,gross-moTax-moEpf-moIns);
+  const effRate=annGross>0?annTax/annGross:0,retRate=gross>0?net/gross:0;
+  const taxSh=gross>0?moTax/gross:0,epfSh=gross>0?moEpf/gross:0,insSh=gross>0?moIns/gross:0;
   const bankMo=gross*0.035,modMo=gross*0.006,savMo=bankMo-modMo;
 
-  // update header stat bar
-  const hstats=['hs-gross','hs-charge','hs-net','hs-tax','hs-ret'];
-  hstats.forEach(id=>g(id).classList.toggle('lit',annGross>0));
-
-  const vals=[
-    ['headline-gross',rm(annGross)],
-    ['headline-chargeable',rm(ci)],
-    ['hs-net-val',rm(net)],
-    ['hs-tax-val',rm(annTax,2)],
-    ['hs-ret-val',pct(retRate,1)],
-    ['grossMonthly',rm(gross)],
-    ['netMonthly',rm(net)],
-    ['effRate',pct(effRate,2)],
-  ];
-  vals.forEach(([id,v])=>{
-    const el=g(id);if(!el)return;
-    if(el.textContent!==v){animateVal(el,v);flashEl(el)}
-  });
-  g('hs-net-sub').textContent=rm(net*12)+' annually';
-  g('hs-eff-sub').textContent=pct(effRate,2)+' effective rate';
-
-  g('grossSub').textContent=sal.toLocaleString('en-MY')+' '+cur+' at '+fx.toFixed(2);
-  g('taxMo').textContent=rm(moTax,2);
-  g('epfMo').textContent=rm(moEpf,2);
-  g('socsoMo').textContent=rm(moIns,2);
-  g('netAnnual').textContent=rm(net*12)+' annually';
-  g('annualTax').textContent=rm(annTax,2)+' per year';
-  g('reliefLine').textContent='Standard relief: RM 9,000  ·  EPF/SOCSO/EIS: '+rm(annDed);
-  g('retentionPct').textContent='Net is '+pct(retRate)+' of gross';
-
-  const s=v=>Math.min(100,v*100).toFixed(1)+'%';
-  g('segNet').style.width=s(retRate);
-  g('segTax').style.width=s(taxSh);
-  g('segEpf').style.width=s(epfSh);
-  g('segIns').style.width=s(insSh);
-
-  g('bankMo').textContent=rm(bankMo,2);g('bankAn').textContent=rm(bankMo*12,2);
-  g('modMo').textContent=rm(modMo,2);g('modAn').textContent=rm(modMo*12,2);
-  g('savMo').textContent=rm(savMo,2);g('savAn').textContent=rm(savMo*12,2);
-
-  renderBands(rows);
-  buildScenarios();
+  ['f-hs-gross','f-hs-charge','f-hs-net','f-hs-tax','f-hs-ret'].forEach(id=>g(id).classList.toggle('lit-green',annGross>0));
+  setVal('f-headline-gross',rm(annGross));setVal('f-headline-chargeable',rm(ci));
+  setVal('f-hs-net-val',rm(net));setVal('f-hs-tax-val',rm(annTax,2));
+  setVal('f-hs-ret-val',pct(retRate,1));setVal('f-gross-monthly',rm(gross));
+  setVal('f-net-monthly',rm(net));setVal('f-eff-rate',pct(effRate,2));
+  g('f-hs-net-sub').textContent=rm(net*12)+' annually';
+  g('f-hs-eff-sub').textContent=pct(effRate,2)+' effective rate';
+  g('f-gross-sub').textContent=sal.toLocaleString('en-MY')+' '+cur+' at '+fx.toFixed(2);
+  g('f-tax-mo').textContent=rm(moTax,2);g('f-epf-mo').textContent=rm(moEpf,2);g('f-socso-mo').textContent=rm(moIns,2);
+  g('f-net-annual').textContent=rm(net*12)+' annually';g('f-annual-tax').textContent=rm(annTax,2)+' per year';
+  g('f-relief-line').textContent='Standard relief: RM 9,000  ·  EPF/SOCSO/EIS: '+rm(annDed);
+  g('f-retention-pct').textContent='Net is '+pct(retRate)+' of gross';
+  const sw=v=>Math.min(100,v*100).toFixed(1)+'%';
+  g('f-seg-net').style.width=sw(retRate);g('f-seg-tax').style.width=sw(taxSh);
+  g('f-seg-epf').style.width=sw(epfSh);g('f-seg-ins').style.width=sw(insSh);
+  g('f-bank-mo').textContent=rm(bankMo,2);g('f-bank-an').textContent=rm(bankMo*12,2);
+  g('f-mod-mo').textContent=rm(modMo,2);g('f-mod-an').textContent=rm(modMo*12,2);
+  g('f-sav-mo').textContent=rm(savMo,2);g('f-sav-an').textContent=rm(savMo*12,2);
+  renderBands('f-tax-bands',rows,'active-g');
+  fBuildScenarios();
 }
 
-// --- EVENTS ---
-g('currencySelect').addEventListener('change',()=>{
-  g('fxInput').value=fxMap[g('currencySelect').value].toFixed(2);calc();
-});
+g('f-currency').addEventListener('change',()=>{g('f-fx').value=fxMap[g('f-currency').value].toFixed(2);fCalc()});
+g('f-slider').addEventListener('input',()=>{const v=Number(g('f-slider').value);g('f-salary').value=v;g('f-slider-display').textContent=v.toLocaleString('en-MY');fCalc()});
+g('f-salary').addEventListener('input',()=>{const v=Math.min(50000,num(g('f-salary')));g('f-slider').value=v;g('f-slider-display').textContent=num(g('f-salary')).toLocaleString('en-MY');fCalc()});
+g('f-epf-mode').addEventListener('change',()=>{const c=g('f-epf-mode').value==='custom';g('f-custom-epf').disabled=!c;if(!c)g('f-custom-epf').value='11';fCalc()});
+g('f-epf-check').addEventListener('change',()=>{g('f-epf-box').classList.toggle('on-green',g('f-epf-check').checked);g('f-epf-controls').classList.toggle('hidden',!g('f-epf-check').checked);fCalc()});
+g('f-socso-check').addEventListener('change',()=>{g('f-socso-box').classList.toggle('on-green',g('f-socso-check').checked);fCalc()});
+g('f-fx').addEventListener('input',fCalc);g('f-custom-epf').addEventListener('input',fCalc);
+fCalc();
 
-g('salarySlider').addEventListener('input',()=>{
-  const v=Number(g('salarySlider').value);
-  g('salaryInput').value=v;
-  g('sliderDisplay').textContent=v.toLocaleString('en-MY');
-  calc();
-});
+// ─── PAGE 2: LOCAL MALAYSIAN CORE SALARY COMPUTATION ───
+const lScenarios=[
+  {label:'Fresh graduate',salary:2800},{label:'Executive',salary:5000},
+  {label:'Senior exec',salary:8000},{label:'Manager',salary:12000},
+  {label:'Senior manager',salary:18000},{label:'Director',salary:25000},
+];
 
-g('salaryInput').addEventListener('input',()=>{
-  const v=Math.min(50000,num(g('salaryInput')));
-  g('salarySlider').value=v;
-  g('sliderDisplay').textContent=num(g('salaryInput')).toLocaleString('en-MY');
-  calc();
-});
+function lBuildScenarios(){
+  const curSal=num(g('l-salary'));
+  g('l-scenario-grid').innerHTML=lScenarios.map((s,i)=>{
+    const active=s.salary===curSal;
+    return`<div class="sc-card b${active?' active':''}" onclick="lLoadScenario(${i})">
+      <div class="sc-label">${s.label}</div>
+      <div class="sc-val">RM ${s.salary.toLocaleString('en-MY')}</div>
+      <div class="sc-curr">≈ RM ${(s.salary*12).toLocaleString('en-MY')}/yr</div>
+      <div class="sc-badge blue">Active</div>
+    </div>`;
+  }).join('');
+}
 
-g('epfMode').addEventListener('change',()=>{
-  const custom=g('epfMode').value==='custom';
-  g('customEpf').disabled=!custom;
-  if(!custom)g('customEpf').value='11';
-  calc();
-});
+window.lLoadScenario=function(i){
+  const s=lScenarios[i];
+  g('l-salary').value=s.salary;
+  g('l-slider').value=Math.min(30000,s.salary);
+  g('l-salary-big-display').textContent=s.salary.toLocaleString('en-MY');
+  lCalc();
+};
 
-g('epfCheck').addEventListener('change',()=>{
-  g('epfBox').classList.toggle('on',g('epfCheck').checked);
-  g('epfControls').classList.toggle('hidden',!g('epfCheck').checked);
-  calc();
-});
+function lCalc(){
+  const sal=num(g('l-salary'));
+  const annGross=sal*12;
+  const empEpfRate=g('l-epf-mode').value==='custom'?num(g('l-custom-epf'))/100:0.11;
+  
+  // Malaysian Statutory 2025/2026 Employer EPF scaling logic rules
+  const emplrEpfRate=(sal<=5000)?0.13:0.12; 
+  
+  const moEmpEpf=g('l-epf-check').checked?sal*empEpfRate:0;
+  const moEmplrEpf=g('l-epf-check').checked?sal*emplrEpfRate:0;
+  const moSocso=g('l-socso-check').checked?Math.min(sal*0.005,19.85):0;
+  const moEis=g('l-socso-check').checked?Math.min(sal*0.002,9.90):0;
+  const moIns=moSocso+moEis;
+  const extraRelief=num(g('l-extra-relief'));
+  const annDed=(moEmpEpf+moIns)*12;
+  const ci=Math.max(0,annGross-9000-annDed-extraRelief);
+  const{total:annTax,rows}=calcTax(ci);
+  const moTax=annTax/12;
+  const net=Math.max(0,sal-moTax-moEmpEpf-moIns);
+  const effRate=annGross>0?annTax/annGross:0;
+  const retRate=sal>0?net/sal:0;
+  const taxSh=sal>0?moTax/sal:0,epfSh=sal>0?moEmpEpf/sal:0,insSh=sal>0?moIns/sal:0;
+  const totalCostMo=sal+moEmplrEpf;
+  const combinedEpf=moEmpEpf+moEmplrEpf;
 
-g('socsoCheck').addEventListener('change',()=>{
-  g('socsoBox').classList.toggle('on',g('socsoCheck').checked);
-  calc();
-});
+  ['l-hs-gross','l-hs-charge','l-hs-net','l-hs-tax','l-hs-employer'].forEach(id=>g(id).classList.toggle('lit-blue',annGross>0));
+  setVal('l-headline-gross',rm(annGross));setVal('l-headline-chargeable',rm(ci));
+  setVal('l-hs-net-val',rm(net));setVal('l-hs-tax-val',rm(annTax,2));
+  setVal('l-hs-employer-val',rm(moEmplrEpf,2));
+  g('l-hs-net-sub').textContent=rm(net*12)+' annually';
+  g('l-hs-eff-sub').textContent=pct(effRate,2)+' effective';
+  setVal('l-gross-monthly',rm(sal));g('l-gross-sub').textContent='MYR gross salary';
+  setVal('l-net-monthly',rm(net));setVal('l-eff-rate',pct(effRate,2));
+  g('l-tax-mo').textContent=rm(moTax,2);g('l-epf-mo').textContent=rm(moEmpEpf,2);g('l-socso-mo').textContent=rm(moIns,2);
+  g('l-net-annual').textContent=rm(net*12)+' annually';g('l-annual-tax').textContent=rm(annTax,2)+' per year';
+  g('l-relief-line').textContent='Standard relief: RM 9,000  ·  Employee EPF/Ins: '+rm(annDed/12)+'/mo'+(extraRelief>0?'  ·  Extra: '+rm(extraRelief):'');
+  g('l-retention-pct').textContent=pct(retRate)+' retained';
+  
+  // Real-time synchronization of interactive Payslip layout bars
+  const pPct=v=>Math.min(100,v*100).toFixed(1)+'%';
+  g('l-bar-net').style.width=pPct(retRate);g('l-bar-tax').style.width=pPct(taxSh);
+  g('l-bar-epf').style.width=pPct(epfSh);g('l-bar-ins').style.width=pPct(insSh);
+  
+  g('l-bar-net-val').textContent=rm(net);g('l-bar-tax-val').textContent=rm(moTax);
+  g('l-bar-epf-val').textContent=rm(moEmpEpf);g('l-bar-ins-val').textContent=rm(moIns);
 
-g('fxInput').addEventListener('input',calc);
-g('customEpf').addEventListener('input',calc);
+  setVal('l-employer-epf-mo',rm(moEmplrEpf));
+  setVal('l-total-cost-mo',rm(totalCostMo));
+  setVal('l-total-epf-pot',rm(combinedEpf));
 
-// init
-g('epfBox').classList.add('on');
-g('socsoBox').classList.add('on');
-calc();
+  // Forward compounding EPF nested dividends math matrix tracking
+  const yrs=[1,5,10,20,30];
+  const annReturn=0.057; 
+  g('l-epf-proj').innerHTML='<div style="margin-bottom:.6rem;font-size:12px;color:var(--text3)">Projected compounding growth over timeline:</div>'+
+    yrs.map(y=>{
+      const monthly=combinedEpf;
+      let bal=0;for(let m=0;m<y*12;m++){bal=(bal+monthly)*(1+annReturn/12)}
+      return`<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--border);font-size:12px">
+        <span style="color:var(--text2)">${y} year${y>1?'s':''} maturity</span>
+        <span style="font-weight:700;color:#fff">${rm(bal)}</span>
+      </div>`;
+    }).join('');
+
+  renderBands('l-tax-bands',rows,'active-b');
+  lBuildScenarios();
+}
+
+g('l-slider').addEventListener('input',()=>{const v=Number(g('l-slider').value);g('l-salary').value=v;g('l-salary-big-display').textContent=v.toLocaleString('en-MY');lCalc()});
+g('l-salary').addEventListener('input',()=>{const v=Math.min(30000,num(g('l-salary')));g('l-slider').value=v;g('l-salary-big-display').textContent=num(g('l-salary')).toLocaleString('en-MY');lCalc()});
+g('l-epf-mode').addEventListener('change',()=>{const c=g('l-epf-mode').value==='custom';g('l-custom-epf').disabled=!c;if(!c)g('l-custom-epf').value='11';lCalc()});
+g('l-epf-check').addEventListener('change',()=>{g('l-epf-box').classList.toggle('on-blue',g('l-epf-check').checked);g('l-epf-controls').classList.toggle('hidden',!g('l-epf-check').checked);lCalc()});
+g('l-socso-check').addEventListener('change',()=>{g('l-socso-box').classList.toggle('on-blue',g('l-socso-check').checked);lCalc()});
+g('l-extra-relief').addEventListener('input',lCalc);
+
+// Initialize script triggers
+fCalc();
+lCalc();
 </script>
 </body>
 </html>
